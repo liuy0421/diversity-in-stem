@@ -9,10 +9,14 @@ var data = {"header": ["Gender" , "Population"],
 var dataPie = {"header": ["Women", "Men", "Major" , "Population"],
             	"Men": [{"Major": "CS", "Population": 22},
                        	 {"Major": "ChemE", "Population": 7},
-                       	 {"Major": "Architectural Studies", "Population": 3}],
+                       	 {"Major": "Architectural Studies", "Population": 3}, 
+                       	 {"Major": "BioPsych", "Population": 6}, 
+                       	 {"Major": "Math", "Population": 20}],
                 "Women": [{"Major": "CS", "Population": 25},
                        	 {"Major": "ChemE", "Population": 6},
-                       	 {"Major": "Architectural Studies", "Population": 1}]};
+                       	 {"Major": "Architectural Studies", "Population": 1}, 
+                       	 {"Major": "BioPsych", "Population": 30}, 
+                       	 {"Major": "Math", "Population": 15}]};
 
 var bar = new myBar(0, 0, 800, 500, data, "#6b4455", "#996461", "bar-chart");
 //bar.drawBar(svg);
