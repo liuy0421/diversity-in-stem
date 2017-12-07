@@ -25,6 +25,13 @@ class coordinatedPie {
 		this.cx1 = this.x + this.offset + this.radius;
 		this.cx2 = this.x + this.w - (this.offset + this.radius);
 		this.cy = this.y + this.h / 2;
+		this.textBox1 = document.createElementNS(svgns, "text");
+		this.textBox2 = document.createElementNS(svgns, "text");
+		this.majorLabel = document.createElementNS(svgns, "text");
+
+		this.textBox1.setAttribute('id', 'pieText1');
+		this.textBox2.setAttribute('id', 'pieText2');
+		this.majorLabel.setAttribute('id', 'pieMajor');
 
 		this.total1 = this.data1.reduce(function(acc, point) {
 			return (point[data["header"][3]] + acc);
@@ -43,7 +50,28 @@ class coordinatedPie {
 		// console.log(this.data1);
 
 		// this.colors = ["#FF785A", "#FFC145", "#0FA3B1", "#456990", "#FFB86F"];
-		this.colors = ["#8AD5E0", "#C2DDCC", "#EAE6BC", "#F78E21", "#FC7000", "#ED8B7C", "#9FCADD", "#FDCBBB", "#C7DD34", "#62A1AE", "#EF3791", "#D8AC29", "#F4B4B0"];
+		this.colors = ["#8AD5E0", "#C2DDCC", "#EAE6BC", "#F78E21", "#FC7000", "#ED8B7C", "#9FCADD", 
+						"#FDCBBB", "#C7DD34", "#62A1AE", "#EF3791", "#D8AC29", "#F4B4B0"];
+
+	}
+
+	drawLabels () {
+		var interval = (this.w - this.offset) / this.data1.length;
+		var curX = this.x + 2 * this.offset;
+
+		for (let i = 0; i < this.data1.length; i++) {
+			let l = document.createElementNS(svgns, "text");
+			l.setAttribute('x', curX);
+			l.setAttribute('y', this.y + this.h - this.offset);	
+			l.setAttribute('fill', this.colors[i]);
+
+			let t = document.createTextNode(this.data1[i][this.categoryName]);
+			l.appendChild(t);
+			this.chart.appendChild(l);
+
+			curX += interval;
+		}
+
 
 	}
 
@@ -98,9 +126,12 @@ class coordinatedPie {
 	}
 
 	drawPie () {
+
+		this.drawLabels();
+
 		let labelP1 = document.createElementNS(svgns, "text");
 		labelP1.setAttribute('x', this.cx1);
-		labelP1.setAttribute('y', this.y + this.h - this.offset);	
+		labelP1.setAttribute('y', this.y + this.offset * 1.5);	
 
 		let textNode1 = document.createTextNode(this.label1);
 		labelP1.appendChild(textNode1);
@@ -108,11 +139,17 @@ class coordinatedPie {
 
 		let labelP2 = document.createElementNS(svgns, "text");
 		labelP2.setAttribute('x', this.cx2);
-		labelP2.setAttribute('y', this.y + this.h - this.offset);	
+		labelP2.setAttribute('y', this.y + this.offset * 1.5);	
 
 		let textNode2 = document.createTextNode(this.label2);
 		labelP2.appendChild(textNode2);
 		this.chart.appendChild(labelP2);
+
+		let box1 = this.textBox1;
+		let box2 = this.textBox2;
+		let xpos1 = this.x + this.offset * 0.5;
+		let xpos2 = this.x + this.w - this.offset * 0.5;
+		let ypos = this.y + this.h / 2;
 
 		// console.log(this.path1);
 		for (let i = 0; i < this.path1.length; i++) {
@@ -122,13 +159,25 @@ class coordinatedPie {
 			path.setAttribute("fill", this.colors[i]);
 			path.setAttribute("id", "1-" + i);
 
-			// console.log(path["id"]);
-
 			let path2 = this.path2;
+			let number1 = this.data1[i][this.valueName];
+			let number2 = this.data2[i][this.valueName];
+			let tnode1 = document.createTextNode(number1);
+			let tnode2 = document.createTextNode(number2);
+			//box1.setAttribute('fill', this.colors[i]);
+			let c = this.chart;
 
 			path.addEventListener("mouseover", function(event){
 			    path.setAttribute("fill-opacity", 0.5);
-			    
+			    box1.setAttribute('x', xpos1);
+			    box1.setAttribute('y', ypos);
+			    box2.setAttribute('x', xpos2);
+			    box2.setAttribute('y', ypos);
+			    box1.appendChild(tnode1);
+			    box2.appendChild(tnode2);
+			    c.appendChild(box1);
+			    c.appendChild(box2);
+
 			    for (var j = 0; j < path2.length; j++) {
 			    	let path2 = document.getElementById("2-" + j);
 			    	if (path2["id"] == "2-" + i) {
@@ -141,6 +190,11 @@ class coordinatedPie {
 				// console.log(event);
 				path.setAttribute("fill-opacity", 1);
 
+				box1.removeChild(tnode1);
+				c.removeChild(box1);
+				box2.removeChild(tnode2);
+				c.removeChild(box2);
+
 				for (var j = 0; j < path2.length; j++) {
 			    	let path2 = document.getElementById("2-" + j);
 			    	if (path2["id"] == "2-" + i) {
@@ -152,6 +206,7 @@ class coordinatedPie {
 			this.chart.appendChild(path);
 		}
 
+
 		for (let i = 0; i < this.path2.length; i++) {
 			let path = document.createElementNS(svgns, "path");
 			path.setAttribute("d", this.path2[i]);
@@ -160,10 +215,19 @@ class coordinatedPie {
 			path.setAttribute("id", "2-" + i);
 
 			let path1 = this.path1;
+			
+			let number = this.data2[i][this.valueName];
+			let tnode = document.createTextNode(number);
+			let c = this.chart;
 
 			path.addEventListener("mouseover", function(event){
 			    path.setAttribute("fill-opacity", 0.5);
 			    
+			    box2.setAttribute('x', xpos2);
+			    box2.setAttribute('y', ypos);
+				box2.appendChild(tnode);
+				c.appendChild(box2);
+
 			    for (var j = 0; j < path1.length; j++) {
 			    	let path1 = document.getElementById("1-" + j);
 			    	if (path1["id"] == "1-" + i) {
@@ -171,13 +235,14 @@ class coordinatedPie {
 			    	}
 			    }
 
-
-
 		    });
 
 			path.addEventListener("mouseleave", function(event){
 				// console.log(event);
 				path.setAttribute("fill-opacity", 1);
+
+				box2.removeChild(tnode);
+				c.removeChild(box2);
 
 				for (var j = 0; j < path1.length; j++) {
 			    	let path1 = document.getElementById("1-" + j);
@@ -189,6 +254,9 @@ class coordinatedPie {
 
 			this.chart.appendChild(path);
 		}
-
 	}
 }
+
+
+
+
