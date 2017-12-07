@@ -50,8 +50,8 @@ class coordinatedPie {
 		// console.log(this.data1);
 
 		// this.colors = ["#FF785A", "#FFC145", "#0FA3B1", "#456990", "#FFB86F"];
-		this.colors = ["#8AD5E0", "#C2DDCC", "#EAE6BC", "#F78E21", "#FC7000", "#ED8B7C", "#9FCADD", 
-						"#FDCBBB", "#C7DD34", "#62A1AE", "#EF3791", "#D8AC29", "#F4B4B0"];
+		this.colors = ['#8AD5E0', '#8DA153', '#C8B87F', '#F78E21', '#FCC800', '#ED8B7C', '#9FCADD', 
+						'#FDCBBB', '#C7DD34', '#62A1AE', '#7E30A1'];
 
 	}
 
@@ -150,6 +150,7 @@ class coordinatedPie {
 		let xpos1 = this.x + this.offset * 0.5;
 		let xpos2 = this.x + this.w - this.offset * 0.5;
 		let ypos = this.y + this.h / 2;
+		let c = this.chart;
 
 		// console.log(this.path1);
 		for (let i = 0; i < this.path1.length; i++) {
@@ -165,7 +166,6 @@ class coordinatedPie {
 			let tnode1 = document.createTextNode(number1);
 			let tnode2 = document.createTextNode(number2);
 			//box1.setAttribute('fill', this.colors[i]);
-			let c = this.chart;
 
 			path.addEventListener("mouseover", function(event){
 			    path.setAttribute("fill-opacity", 0.5);
@@ -216,17 +216,21 @@ class coordinatedPie {
 
 			let path1 = this.path1;
 			
-			let number = this.data2[i][this.valueName];
-			let tnode = document.createTextNode(number);
-			let c = this.chart;
+			let number1 = this.data1[i][this.valueName];
+			let number2 = this.data2[i][this.valueName];
+			let tnode1 = document.createTextNode(number1);
+			let tnode2 = document.createTextNode(number2);
 
 			path.addEventListener("mouseover", function(event){
 			    path.setAttribute("fill-opacity", 0.5);
-			    
+			    box1.setAttribute('x', xpos1);
+			    box1.setAttribute('y', ypos);
 			    box2.setAttribute('x', xpos2);
 			    box2.setAttribute('y', ypos);
-				box2.appendChild(tnode);
-				c.appendChild(box2);
+			    box1.appendChild(tnode1);
+			    box2.appendChild(tnode2);
+			    c.appendChild(box1);
+			    c.appendChild(box2);
 
 			    for (var j = 0; j < path1.length; j++) {
 			    	let path1 = document.getElementById("1-" + j);
@@ -241,7 +245,9 @@ class coordinatedPie {
 				// console.log(event);
 				path.setAttribute("fill-opacity", 1);
 
-				box2.removeChild(tnode);
+				box1.removeChild(tnode1);
+				c.removeChild(box1);
+				box2.removeChild(tnode2);
 				c.removeChild(box2);
 
 				for (var j = 0; j < path1.length; j++) {
