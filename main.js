@@ -19,19 +19,24 @@ var dataPie = {"header": ["Women", "Men", "Major" , "Population"],
                        	 {"Major": "Math", "Population": 15}]};
 
 var dotsData = { "options": ["Facebook", "Twitter", "Github", "DeepMind"],
-       "labels": ["gender", "race"],
-       "categories": {"gender": ["men", "women"], "race": ["white", "black", "asian", "latinx", "other"]},
+       "labels": ["Gender", "Race"],
+       "categories": {"Gender": ["men", "women"], "Race": ["white", "black", "asian", "latinx", "other"]},
        "Facebook": {"men": 80, "women": 50, "white": 100, "black": 20, "asian": 70, "latinx": 30, "other": 12},
        "Twitter": {"men": 200, "women": 30, "white": 300, "black": 120, "asian": 20, "latinx": 10, "other": 16},
        "Github": {"men": 80, "women": 15, "white": 10, "black": 10, "asian": 10, "latinx": 10, "other": 10},
        "DeepMind": {"men": 6000, "women": 500, "white": 600, "black": 200, "asian": 140, "latinx": 130, "other": 50},
 };
 
-var bar = new myBar(0, 0, 800, 500, data, "#6b4455", "#996461", "bar-chart");
+var w = document.getElementById("mySvg").getAttribute("width");
+console.log(w);
+var h = document.getElementById("mySvg").getAttribute("height");
+console.log(h);
+
+var bar = new myBar(w, h, 800, 500, data, "#6b4455", "#996461", "bar-chart");
 // bar.drawBar(svg);
-var pies = new coordinatedPie(0, 0, 800, 500, dataPie, "pie-chart");
-// pies.drawPie();
-var dots = new Dots(0, 0, 800, 500, dotsData, "dots-chart");
+var pies = new coordinatedPie(0, 0, w, h, dataPie, "pie-chart");
+//pies.drawPie();
+var dots = new Dots(0, 0, w, h, dotsData, "dots-chart");
 dots.draw();
 
 

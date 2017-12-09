@@ -37,6 +37,8 @@ class Dots {
 		this.colors = ['#8AD5E0','#F78E21', '#8DA153', '#C8B87F', '#FCC800', '#ED8B7C', '#9FCADD', 
 						'#FDCBBB', '#C7DD34', '#62A1AE', '#7E30A1'];
 
+		this.graph = document.createElementNS(svgns, "g");
+		this.chart.appendChild(this.graph);
 		svg.appendChild(this.chart);
 
 	}
@@ -60,6 +62,7 @@ class Dots {
 			let c = this.chart;
 			let opt = option;
 			let s = this;
+			let g = this.graph;
 
 			circle.addEventListener("click", function(event){
 				c.setAttribute("selectedOpt", opt);
@@ -91,10 +94,21 @@ class Dots {
 			circle.setAttribute("r", this.radiusRight);
 
 			circle.setAttribute("fill", '#7E30A1');
+
+			let textLabel = document.createElementNS(svgns, "text");
+			textLabel.setAttribute('x', xPosRight);
+			textLabel.setAttribute('y', yPos + 5);	
+			textLabel.setAttribute('stroke-width', "5px");
+			textLabel.setAttribute('fill', "white");
+
+			let t = document.createTextNode(label);
+			textLabel.appendChild(t);
 			
+
 			let c = this.chart;
 			let l = label;
 			let s = this;
+			let g = this.graph;
 
 			circle.addEventListener("click", function(event){
 				c.setAttribute("selectedLabel", l);
@@ -112,19 +126,21 @@ class Dots {
 		    });
 
 			this.chart.appendChild(circle);
+			this.chart.appendChild(textLabel);
 
 			yPos += this.intervalRight;
 		}
 	}
 
 	drawGraph() {
+		this.chart.removeChild(this.graph);
+		this.graph = document.createElementNS(svgns, "g");
 		let c_width = this.w - this.offset - this.radiusLeft * 4,
 			c_height = (this.h - this.offset * 2) ,
 			c_interval = c_height / 20,
 			c_x = this.x + this.offset /2 + this.radiusLeft * 2 + (c_width - c_height)/2,
 			c_y = this.y + this.offset,
 			c_radius = c_interval * .8;
-
 
 		let o = this.chart.getAttribute("selectedOpt");
 		let l = this.chart.getAttribute("selectedLabel");
@@ -147,6 +163,13 @@ class Dots {
 
 		let j = 0;
 		total = percentages[0].value;
+		let text_interval = Math.floor(c_height / percentages.length);
+		console.log(percentages.length);
+
+
+		let tx = c_x + text_interval / 2,
+			ty = c_y + c_height + this.offset,
+			numy = ty -15;
 
 		for (let i = 0 ; i < 100; i++) {
 			let row = Math.floor(i /10), col = i % 10,
@@ -158,21 +181,56 @@ class Dots {
 			circle.setAttribute("cy", y_pos);
 			circle.setAttribute("r", c_radius);
 
+			circle.addEventListener("mouseover", function(event){
+			    circle.setAttribute("fill-opacity", 0.5);
+		    });
+
+		    circle.addEventListener("mouseleave", function(event){
+			    circle.setAttribute("fill-opacity", 1);
+		    });
+
 			if (i == total) {
 				j++;
-				total += percentages[j].value;	
+				if (j == percentages.length){
+					j--;
+				}
+				total += percentages[j].value;
 			}
 
 			circle.setAttribute("fill", this.colors[j]);
 
-			this.chart.appendChild(circle);
+			this.graph.appendChild(circle);
 		}
 
+		for (let i = 0; i < percentages.length; i++) {
+
+			let catLabel = document.createElementNS(svgns, "text");
+			catLabel.setAttribute('x', tx);
+			catLabel.setAttribute('y', ty);	
+			catLabel.setAttribute('fill', this.colors[i]);
+
+			let t = document.createTextNode(percentages[i].label);
+			catLabel.appendChild(t);
+			this.graph.appendChild(catLabel);
+
+			let catNum = document.createElementNS(svgns, "text");
+			catNum.setAttribute('x', tx);
+			catNum.setAttribute('y', numy);	
+			catNum.setAttribute('fill', this.colors[i]);
+
+			let num = document.createTextNode(percentages[i].value + "%");
+			catNum.appendChild(num);
+			this.graph.appendChild(catNum);
+
+			tx = tx + text_interval;
+		}
+
+		this.chart.appendChild(this.graph);
 	}
 
-	draw(){
-		this.drawButtons();
+	draw () {
 		this.drawGraph();
-
+		this.drawButtons();
+		
 	}
 }
