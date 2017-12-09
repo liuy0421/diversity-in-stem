@@ -2,12 +2,12 @@ body {
 	font-family: 'Barlow Semi Condensed', sans-serif;
 	text-align: center;
 	text-anchor: middle;
-	background-color: #f5f5dc;
+	/*background-color: #f5f5dc;*/
 	/*font-size: 24px;*/
 }
 
 #mySvg {
-	border: 1px solid red;
+	/*border: 1px solid red;*/
 }
 
 /*text {

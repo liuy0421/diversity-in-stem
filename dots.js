@@ -1,6 +1,6 @@
 // var data = { "options": ["Facebook", "Twitter", "Github", "DeepMind"],
 // 			 "labels": ["gender", "race"];
-// 			 "categories": [{"gender": ["men", "women"]}, {"race": ["white", "black", "asian", "latinx", "other"]},
+// 			 "categories": {"gender": ["men", "women"], "race": ["white", "black", "asian", "latinx", "other"},
 // 			 "Facebook": {"men": 80, "women": 50, "white": 100, "black": 20, "asian": 70, "latinx": 30, "other": 12},
 // 			 "Twitter": {"men": 200, "women": 30, "white": 300, "black": 120, "asian": 20, "latinx": 10, "other": 16,
 // 			 "Github": {"men": 80, "women": 15, "white": 10, "black": 10, "asian": 10, "latinx": 10, "other": 10},
@@ -28,13 +28,14 @@ class Dots {
 
 		for (const option of this.options) {
 			this.data[option] = data[option];
-
 		}
 
 		this.chart = document.createElementNS(svgns, "g");
 		this.chart.setAttribute("id", this.ID);
 		this.chart.setAttribute("selectedOpt", this.options[0]);
 		this.chart.setAttribute("selectedLabel", this.labels[0]);
+		this.colors = ['#8AD5E0','#F78E21', '#8DA153', '#C8B87F', '#FCC800', '#ED8B7C', '#9FCADD', 
+						'#FDCBBB', '#C7DD34', '#62A1AE', '#7E30A1'];
 
 		svg.appendChild(this.chart);
 
@@ -58,16 +59,18 @@ class Dots {
 			
 			let c = this.chart;
 			let opt = option;
+			let s = this;
 
 			circle.addEventListener("click", function(event){
 				c.setAttribute("selectedOpt", opt);
-			
+				s.drawGraph();
 			    // c.setAttribute("selectedOpt", opt);
 			    // if 
 		    });
 
 			circle.addEventListener("mouseover", function(event){
 			    circle.setAttribute("fill-opacity", 0.5);
+
 		    });
 
 		    circle.addEventListener("mouseleave", function(event){
@@ -87,14 +90,15 @@ class Dots {
 			circle.setAttribute("cy", yPos);
 			circle.setAttribute("r", this.radiusRight);
 
-			circle.setAttribute("fill", 'green');
+			circle.setAttribute("fill", '#7E30A1');
 			
 			let c = this.chart;
 			let l = label;
+			let s = this;
 
 			circle.addEventListener("click", function(event){
 				c.setAttribute("selectedLabel", l);
-			
+				s.drawGraph();
 			    // c.setAttribute("selectedOpt", opt);
 			    // if 
 		    });
@@ -113,17 +117,36 @@ class Dots {
 		}
 	}
 
-	draw(){
-		this.drawButtons();
-
+	drawGraph() {
 		let c_width = this.w - this.offset - this.radiusLeft * 4,
 			c_height = (this.h - this.offset * 2) ,
 			c_interval = c_height / 20,
 			c_x = this.x + this.offset /2 + this.radiusLeft * 2 + (c_width - c_height)/2,
 			c_y = this.y + this.offset,
-			
 			c_radius = c_interval * .8;
 
+
+		let o = this.chart.getAttribute("selectedOpt");
+		let l = this.chart.getAttribute("selectedLabel");
+
+		let d = this.data[o];
+		let total = 0;
+		let percentages = [];
+
+		for (const c of this.categories[l]){
+			total += d[c];
+		}
+
+		for (const c of this.categories[l]){
+			percentages.push({ label: c, value: Math.round(100 * d[c] / total)});
+		}
+
+		percentages.sort(function(a, b) {
+			return b.value - a.value;
+		});
+
+		let j = 0;
+		total = percentages[0].value;
 
 		for (let i = 0 ; i < 100; i++) {
 			let row = Math.floor(i /10), col = i % 10,
@@ -135,15 +158,21 @@ class Dots {
 			circle.setAttribute("cy", y_pos);
 			circle.setAttribute("r", c_radius);
 
-			circle.setAttribute("fill", 'black');
+			if (i == total) {
+				j++;
+				total += percentages[j].value;	
+			}
+
+			circle.setAttribute("fill", this.colors[j]);
 
 			this.chart.appendChild(circle);
 		}
 
+	}
 
-
-
-
+	draw(){
+		this.drawButtons();
+		this.drawGraph();
 
 	}
 }

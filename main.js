@@ -1,6 +1,6 @@
 var svg = document.getElementById("mySvg");
 var svgns = "http://www.w3.org/2000/svg";
-
+ 
 
 var data = {"header": ["Gender" , "Population"],
             "values": [{"Gender": "Men", "Population": 22},
@@ -20,7 +20,7 @@ var dataPie = {"header": ["Women", "Men", "Major" , "Population"],
 
 var dotsData = { "options": ["Facebook", "Twitter", "Github", "DeepMind"],
        "labels": ["gender", "race"],
-       "categories": [{"gender": ["men", "women"]}, {"race": ["white", "black", "asian", "latinx", "other"]}],
+       "categories": {"gender": ["men", "women"], "race": ["white", "black", "asian", "latinx", "other"]},
        "Facebook": {"men": 80, "women": 50, "white": 100, "black": 20, "asian": 70, "latinx": 30, "other": 12},
        "Twitter": {"men": 200, "women": 30, "white": 300, "black": 120, "asian": 20, "latinx": 10, "other": 16},
        "Github": {"men": 80, "women": 15, "white": 10, "black": 10, "asian": 10, "latinx": 10, "other": 10},
