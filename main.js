@@ -42,7 +42,7 @@ var bar = new myBar(w, h, 800, 500, data, "#6b4455", "#996461", "bar-chart");
 // bar.drawBar(svg);
 var pies = new coordinatedPie(0, 0, w, h, dataPie, "pie-chart");
 //pies.drawPie();
-var dots = new Dots(0, 0, w, h, dotsData, "dots-chart");
+var dots = new Dots(0, 0, w, 500, dotsData, "dots-chart");
 dots.draw();
 
 
