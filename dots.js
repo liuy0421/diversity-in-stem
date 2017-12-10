@@ -50,6 +50,33 @@ class Dots {
 		let xPosLeft = this.x + this.offset / 2 + this.radiusLeft;
 		let xPosRight = this.x + this.w - this.offset / 2 - this.radiusRight;
 
+		// <defs>
+  //   <pattern id="image" x="0%" y="0%" height="100%" width="100%"
+  //            viewBox="0 0 512 512">
+  //     <image x="0%" y="0%" width="512" height="512" xlink:href="https://cdn3.iconfinder.com/data/icons/people-professions/512/Baby-512.png"></image>
+  //   </pattern>
+  // </defs>
+
+		let defs = document.createElementNS(svgns, "defs");
+		for (const option of this.options) {
+			let p = document.createElementNS(svgns, "pattern");
+			p.setAttribute("width", "100%");
+			p.setAttribute("height", "100%");
+			p.setAttribute("x", "0%");
+			p.setAttribute("y", "0%");
+			p.setAttribute("viewBox", "0 0 " + this.radiusLeft * 2 + " " + this.radiusLeft * 2);
+			p.setAttribute("id", "i"+option);
+			let im = document.createElementNS(svgns, "image");
+			im.setAttribute("x", "0%");
+			im.setAttribute("y", "0%");
+			im.setAttribute("width", this.radiusLeft*2);
+			im.setAttribute("height", this.radiusLeft*2);
+			im.setAttribute("href", option + ".png");//option + ".png");
+			p.appendChild(im);
+			defs.appendChild(p);
+		}
+		svg.appendChild(defs);
+
 		for (const option of this.options) {
 			yPos += this.intervalLeft;
 			let circle = document.createElementNS(svgns, "circle");
@@ -57,8 +84,9 @@ class Dots {
 			circle.setAttribute("cy", yPos);
 			circle.setAttribute("r", this.radiusLeft);
 
-			circle.setAttribute("fill", 'blue');
-			
+			//circle.setAttribute("fill", 'blue');
+			circle.setAttribute("fill", "url(#i"+option+")");
+
 			let c = this.chart;
 			let opt = option;
 			let s = this;
@@ -229,8 +257,8 @@ class Dots {
 	}
 
 	draw () {
-		this.drawGraph();
-		this.drawButtons();
 		
+		this.drawButtons();
+		this.drawGraph();
 	}
 }
