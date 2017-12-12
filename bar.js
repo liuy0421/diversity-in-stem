@@ -1,5 +1,5 @@
 class myBar {
-	constructor(x, y, w, h, data, fill, hover, id) {
+	constructor(x, y, w, h, data, fill, hover, id, svg) {
 		this.x = x;
 		this.y = y;
 		this.w = w;
@@ -24,7 +24,7 @@ class myBar {
 
 	}
 
-	drawAxes (svg) {
+	drawAxes () {
 		var linex = document.createElementNS(svgns, "line");
 		var liney = document.createElementNS(svgns, "line");
 		linex.setAttribute('x1', this.x + this.offset);
@@ -66,8 +66,8 @@ class myBar {
 
 	}
 
-	drawBar(svg) {
-		this.drawAxes(svg);
+	drawBar() {
+		this.drawAxes();
 
 		var fill = this.fill;
 		var hover = this.hover;

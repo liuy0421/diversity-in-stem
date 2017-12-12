@@ -9,7 +9,7 @@
 
 
 class Dots {
-	constructor(x, y, w, h, data, id) {
+	constructor(x, y, w, h, data, id, svg) {
 		this.x = x;
 		this.y = y;
 		this.w = w;
@@ -42,8 +42,8 @@ class Dots {
 
 		this.sidebar = document.createElementNS(svgns, "g");
 		this.chart.appendChild(this.sidebar);
-
-		svg.appendChild(this.chart);
+		this.svg = svg;
+		this.svg.appendChild(this.chart);
 
 		
 
@@ -80,7 +80,7 @@ class Dots {
 			p.appendChild(im);
 			defs.appendChild(p);
 		}
-		svg.appendChild(defs);
+		this.svg.appendChild(defs);
 
 		for (const option of this.options) {
 			yPos += this.intervalLeft;

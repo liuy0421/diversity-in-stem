@@ -7,7 +7,7 @@
 //                        	 {"Major": "Architectural Studies", "Population": 1}]};
 
 class coordinatedPie {
-	constructor(x, y, w, h, data, id) {
+	constructor(x, y, w, h, data, id, svg) {
 		this.x = x;
 		this.y = y;
 		this.w = w;

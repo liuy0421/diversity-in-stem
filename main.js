@@ -1,4 +1,6 @@
-var svg = document.getElementById("mySvg");
+var svg1 = document.getElementById("svg1");
+var svg2 = document.getElementById("svg2");
+var svg3 = document.getElementById("svg3");
 var svgns = "http://www.w3.org/2000/svg";
  
 
@@ -33,16 +35,18 @@ var dotsData = { "options": ["Facebook", "Google", "Twitter", "Uber", "Amazon", 
        "Microsoft": {"Male": 72, "Female": 28, "White": 59, "Black": 4, "Asian": 29, "Latinx": 5, "Multiracial": 1,"Other": 1}//
 };
 
-var w = document.getElementById("mySvg").getAttribute("width");
+var w = document.getElementById("svg1").getAttribute("width");
 console.log(w);
-var h = document.getElementById("mySvg").getAttribute("height");
+var h = document.getElementById("svg1").getAttribute("height");
 console.log(h);
 
-var bar = new myBar(w, h, 800, 500, data, "#6b4455", "#996461", "bar-chart");
-// bar.drawBar(svg);
-var pies = new coordinatedPie(0, 0, w, h, dataPie, "pie-chart");
-//pies.drawPie();
-var dots = new Dots(0, 0, w, 500, dotsData, "dots-chart");
+// w = 800;
+
+var bar = new myBar(0, 0, w, h, data, "#6b4455", "#996461", "bar-chart", svg1);
+bar.drawBar();
+var pies = new coordinatedPie(0, 0, w, h, dataPie, "pie-chart", svg2);
+pies.drawPie();
+var dots = new Dots(0, 0, w, 500, dotsData, "dots-chart", svg3);
 dots.draw();
 
 
