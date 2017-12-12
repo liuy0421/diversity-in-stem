@@ -10,16 +10,26 @@ var data = {"header": ["Gender" , "Population"],
                        {"Gender": "Women", "Population": 7}]};
 
 var dataPie = {"header": ["Women", "Men", "Major" , "Population"],
-            	"Men": [{"Major": "CS", "Population": 22},
-                       	 {"Major": "ChemE", "Population": 7},
-                       	 {"Major": "Architectural Studies", "Population": 3}, 
-                       	 {"Major": "BioPsych", "Population": 6}, 
-                       	 {"Major": "Math", "Population": 20}],
-                "Women": [{"Major": "CS", "Population": 25},
-                       	 {"Major": "ChemE", "Population": 6},
-                       	 {"Major": "Architectural Studies", "Population": 1}, 
-                       	 {"Major": "BioPsych", "Population": 30}, 
-                       	 {"Major": "Math", "Population": 15}]};
+            	   "Men": [{"Major": "Biology", "Population": 503000},
+                       	 {"Major": "Computer Science", "Population": 792000},
+                       	 {"Major": "Math", "Population": 284000}, 
+                       	 {"Major": "Chemistry", "Population": 153000}, 
+                       	 {"Major": "Physics", "Population": 85000},
+                         {"Major": "Aerospace Engineering", "Population": 84000},
+                         {"Major": "Mechanical Engineering", "Population": 481000},
+                         {"Major": "Chemical Engineering", "Population": 126000},
+                         {"Major": "EECS Engineering", "Population": 650000},
+                         {"Major": "Civil Engineering", "Population": 306000}],
+                "Women": [{"Major": "Biology", "Population": 700000},
+                       	 {"Major": "Computer Science", "Population": 287000},
+                       	 {"Major": "Math", "Population": 196000}, 
+                       	 {"Major": "Chemistry", "Population": 106000}, 
+                       	 {"Major": "Physics", "Population": 15000},
+                         {"Major": "Aerospace Engineering", "Population": 8000},
+                         {"Major": "Mechanical Engineering", "Population": 41000},
+                         {"Major": "Chemical Engineering", "Population": 46000},
+                         {"Major": "EECS Engineering", "Population": 88000},
+                         {"Major": "Civil Engineering", "Population": 57000}]};
 
 
 // data from tech companies
@@ -53,7 +63,7 @@ console.log(h);
 
 var bar = new myBar(0, 0, w, h, data, "#6b4455", "#996461", "bar-chart", svg1);
 bar.drawBar();
-var pies = new coordinatedPie(0, 0, w, h, dataPie, "pie-chart", svg2);
+var pies = new coordinatedPie(0, 0, w, 600, dataPie, "pie-chart", svg2);
 pies.drawPie();
 var dots = new Dots(0, 0, w, 500, techDotsData, "dots-chart", svg3, true);
 dots.draw();

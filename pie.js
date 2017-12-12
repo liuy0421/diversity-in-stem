@@ -12,7 +12,7 @@ class coordinatedPie {
 		this.y = y;
 		this.w = w;
 		this.h = h;
-		this.offset = .05 * this.w;
+		this.offset = .02 * this.w;
 		this.strokeWidth = "2";
 		this.label1 = data["header"][0];
 		this.label2 = data["header"][1];
@@ -21,13 +21,17 @@ class coordinatedPie {
 		this.data1 = data[this.label1];
 		this.data2 = data[this.label2];
 		this.ID = id;
-		this.radius = (this.w / 2 - this.offset * 2) / 2;
-		this.cx1 = this.x + this.offset + this.radius;
-		this.cx2 = this.x + this.w - (this.offset + this.radius);
+		this.radius1 = (this.w / 2 - this.offset * 2) *.8/ 2;
+		this.radius2 = (this.w / 2 - this.offset * 2) *.8/ 2;
+		this.cx1 = this.x + this.offset *3 + this.radius1;
+		this.cx2 = this.x + this.w - (this.offset*3 + this.radius1);
 		this.cy = this.y + this.h / 2;
 		this.textBox1 = document.createElementNS(svgns, "text");
 		this.textBox2 = document.createElementNS(svgns, "text");
 		this.majorLabel = document.createElementNS(svgns, "text");
+
+
+		//svg.setAttribute("boarder", "white");
 
 		this.textBox1.setAttribute('id', 'pieText1');
 		this.textBox2.setAttribute('id', 'pieText2');
@@ -36,22 +40,31 @@ class coordinatedPie {
 		this.total1 = this.data1.reduce(function(acc, point) {
 			return (point[data["header"][3]] + acc);
 		}, 0);
-
+        
 		this.total2 = this.data2.reduce(function(acc, point) {
 			return (point[data["header"][3]] + acc);
 		}, 0);
 
+		if (this.total1 > this.total2) {
+			this.radius2 = this.radius2 * Math.sqrt(this.total2 / this.total1);
+		} else {
+			this.radius1 = this.radius1 * Math.sqrt(this.total1 / this.total2);
+		}
+
 		this.chart = document.createElementNS(svgns, "g");
 		this.chart.setAttribute("id", this.ID);
 		svg.appendChild(this.chart);
-		this.path1 = this.calculatePaths(this.data1, this.cx1, this.cy, this.total1, this.label1);
-		this.path2 = this.calculatePaths(this.data2, this.cx2, this.cy, this.total2, this.label2);
+		this.path1 = this.calculatePaths(this.data1, this.cx1, this.cy, this.total1, this.label1, this.radius1);
+		console.log(this.path1);
+		this.path2 = this.calculatePaths(this.data2, this.cx2, this.cy, this.total2, this.label2, this.radius2);
+		console.log(this.path2);
 
-		// console.log(this.data1);
+		console.log(this.cx1);
+		console.log(this.radius2);
 
 		// this.colors = ["#FF785A", "#FFC145", "#0FA3B1", "#456990", "#FFB86F"];
 		this.colors = ['#8AD5E0', '#8DA153', '#C8B87F', '#F78E21', '#FCC800', '#ED8B7C', '#9FCADD', 
-						'#FDCBBB', '#C7DD34', '#62A1AE', '#7E30A1'];
+						'#FDCBBB', '#C7DD34', '#62A1AE', '#7E30A1', '#E362A3'];
 
 	}
 
@@ -75,9 +88,10 @@ class coordinatedPie {
 
 	}
 
-	calculatePaths(data, cx, cy, total, label) {
+	calculatePaths(data, cx, cy, total, label, radius) {
 		var paths = [];
-		var curX = cx + this.radius;
+		var curX = cx + radius;
+		//console.log("CURX:" + curX);
 		var curY = cy;
 		var nextX, nextY;
 		var quadrant = 0;
@@ -90,32 +104,39 @@ class coordinatedPie {
 			large = angle > Math.PI ? 1 : 0;
 			curAngle += angle;
 			quadrant = Math.floor(curAngle / (Math.PI / 2));
-			// console.log(quadrant);
-			var remainder = curAngle % (quadrant * Math.PI/2);
+			
+			var remainder = 0;
+
+			if (quadrant != 0) {
+				remainder = curAngle % (quadrant * Math.PI/2);
+			} else {
+				remainder = curAngle;
+			}
+
 			switch (quadrant) {
 				case 0:
-					nextX = cx + this.radius * Math.cos(remainder);
-					nextY = cy + this.radius * Math.sin(remainder);
+					nextX = cx + radius * Math.cos(remainder);
+					nextY = cy + radius * Math.sin(remainder);
 					break;
 				case 1:
-					nextX = cx - this.radius * Math.sin(remainder);
-					nextY = cy + this.radius * Math.cos(remainder);
+					nextX = cx - radius * Math.sin(remainder);
+					nextY = cy + radius * Math.cos(remainder);
 					break;
 				case 2:
-					nextX = cx - this.radius * Math.cos(remainder);
-					nextY = cy - this.radius * Math.sin(remainder);
+					nextX = cx - radius * Math.cos(remainder);
+					nextY = cy - radius * Math.sin(remainder);
 					break;
 				case 3:
-					nextX = cx + this.radius * Math.sin(remainder);
-					nextY = cy - this.radius * Math.cos(remainder);
+					nextX = cx + radius * Math.sin(remainder);
+					nextY = cy - radius * Math.cos(remainder);
 					break;
 				case 4:
-					nextX = cx + this.radius;
+					nextX = cx + radius;
 					nextY = cy;
 					break;
 			}
 			var path = "M" + cx + "," + cy + " L" + curX + "," + curY + " A" +
-					   this.radius + "," + this.radius + " 0 " + large + ",1 " +
+					   radius + "," + radius + " 0 " + large + ",1 " +
 					   nextX + "," + nextY + " z";
 			paths.push(path);
 			curX = nextX;
@@ -147,8 +168,8 @@ class coordinatedPie {
 
 		let box1 = this.textBox1;
 		let box2 = this.textBox2;
-		let xpos1 = this.x + this.offset * 0.5;
-		let xpos2 = this.x + this.w - this.offset * 0.5;
+		let xpos1 = this.x + this.offset * 1.2;
+		let xpos2 = this.x + this.w - this.offset * 1.2;
 		let ypos = this.y + this.h / 2;
 		let c = this.chart;
 
