@@ -9,11 +9,12 @@
 
 
 class Dots {
-	constructor(x, y, w, h, data, id, svg) {
+	constructor(x, y, w, h, data, id, svg, useImg) {
 		this.x = x;
 		this.y = y;
 		this.w = w;
 		this.h = h;
+		this.useImg = useImg;
 		this.offset = w * 0.05;
 		this.ID = id;
 		this.options = data["options"];
@@ -25,6 +26,10 @@ class Dots {
 
 		this.radiusLeft = this.intervalLeft * .8;
 		this.radiusRight = this.radiusLeft;
+
+		if (this.radiusLeft > this.h * .12) {
+			this.radiusLeft = this.h * .12;
+		}
 
 		for (const option of this.options) {
 			this.data[option] = data[option];
@@ -62,25 +67,29 @@ class Dots {
 
   		this.chart.removeChild(this.sidebar);
   		this.sidebar = document.createElementNS(svgns, "g");
-		let defs = document.createElementNS(svgns, "defs");
-		for (const option of this.options) {
-			let p = document.createElementNS(svgns, "pattern");
-			p.setAttribute("width", "100%");
-			p.setAttribute("height", "100%");
-			p.setAttribute("x", "0%");
-			p.setAttribute("y", "0%");
-			p.setAttribute("viewBox", "0 0 " + this.radiusLeft * 2 + " " + this.radiusLeft * 2);
-			p.setAttribute("id", "i"+option);
-			let im = document.createElementNS(svgns, "image");
-			im.setAttribute("x", "0%");
-			im.setAttribute("y", "0%");
-			im.setAttribute("width", this.radiusLeft*2);
-			im.setAttribute("height", this.radiusLeft*2);
-			im.setAttribute("href", "img/" + option + ".png");//option + ".png");
-			p.appendChild(im);
-			defs.appendChild(p);
+		let defs = document.createElementNS(svgns, "defs"); 
+
+		if (this.useImg) {
+			for (const option of this.options) {
+				let p = document.createElementNS(svgns, "pattern");
+				p.setAttribute("width", "100%");
+				p.setAttribute("height", "100%");
+				p.setAttribute("x", "0%");
+				p.setAttribute("y", "0%");
+				p.setAttribute("viewBox", "0 0 " + this.radiusLeft * 2 + " " + this.radiusLeft * 2);
+				p.setAttribute("id", "i"+option);
+
+				let im = document.createElementNS(svgns, "image");
+				im.setAttribute("x", "0%");
+				im.setAttribute("y", "0%");
+				im.setAttribute("width", this.radiusLeft*2);
+				im.setAttribute("height", this.radiusLeft*2);
+				im.setAttribute("href", "img/" + option + ".png");//option + ".png");
+				p.appendChild(im);
+				defs.appendChild(p);
+			}
+			this.svg.appendChild(defs);
 		}
-		this.svg.appendChild(defs);
 
 		for (const option of this.options) {
 			yPos += this.intervalLeft;
@@ -88,9 +97,6 @@ class Dots {
 			circle.setAttribute("cx", xPosLeft);
 			circle.setAttribute("cy", yPos);
 			circle.setAttribute("r", this.radiusLeft);
-
-			// circle.setAttribute("fill", 'white');
-			circle.setAttribute("fill", "url(#i"+option+")");
 
 			if (this.chart.getAttribute("selectedOpt") == option) {
 				// circle.setAttribute("stroke-width", "5px");
@@ -100,6 +106,24 @@ class Dots {
 				// circle.setAttribute("stroke-width", "0px");
 				circle.setAttribute("fill-opacity", 0.3);
 			}
+
+
+			let textLabel = document.createElementNS(svgns, "text");
+			textLabel.setAttribute('x', xPosLeft);
+			textLabel.setAttribute('y', yPos + 5);	
+			textLabel.setAttribute('stroke-width', "5px");
+			textLabel.setAttribute('fill', "white");
+
+			if (this.useImg) {
+				circle.setAttribute("fill", "url(#i"+option+")");
+			} else {
+				circle.setAttribute("fill", this.colors[2]);
+				let t = document.createTextNode(option);
+				textLabel.appendChild(t);
+				
+			}
+
+		
 			
 
 			let c = this.chart;
@@ -127,6 +151,7 @@ class Dots {
 		    });
 
 			this.sidebar.appendChild(circle);
+			this.sidebar.appendChild(textLabel);
 
 			yPos += this.intervalLeft;
 		}
