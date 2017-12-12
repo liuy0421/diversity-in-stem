@@ -23,7 +23,7 @@ class Dots {
 		this.intervalLeft = this.h / (this.options.length * 2);
 		this.intervalRight = (this.h - this.offset * 4)/ (this.labels.length * 2);
 
-		this.radiusLeft = this.intervalLeft * .7;
+		this.radiusLeft = this.intervalLeft * .8;
 		this.radiusRight = this.radiusLeft;
 
 		for (const option of this.options) {
@@ -39,24 +39,29 @@ class Dots {
 
 		this.graph = document.createElementNS(svgns, "g");
 		this.chart.appendChild(this.graph);
+
+		this.sidebar = document.createElementNS(svgns, "g");
+		this.chart.appendChild(this.sidebar);
+
 		svg.appendChild(this.chart);
+
+		
+
 
 	}
 
+
 	drawButtons(){
 		// left sidebar
+
+		// console.log(this.chart.getAttribute("selectedOpt"));
 
 		let yPos = this.y;
 		let xPosLeft = this.x + this.offset / 2 + this.radiusLeft;
 		let xPosRight = this.x + this.w - this.offset / 2 - this.radiusRight;
 
-		// <defs>
-  //   <pattern id="image" x="0%" y="0%" height="100%" width="100%"
-  //            viewBox="0 0 512 512">
-  //     <image x="0%" y="0%" width="512" height="512" xlink:href="https://cdn3.iconfinder.com/data/icons/people-professions/512/Baby-512.png"></image>
-  //   </pattern>
-  // </defs>
-
+  		this.chart.removeChild(this.sidebar);
+  		this.sidebar = document.createElementNS(svgns, "g");
 		let defs = document.createElementNS(svgns, "defs");
 		for (const option of this.options) {
 			let p = document.createElementNS(svgns, "pattern");
@@ -71,7 +76,7 @@ class Dots {
 			im.setAttribute("y", "0%");
 			im.setAttribute("width", this.radiusLeft*2);
 			im.setAttribute("height", this.radiusLeft*2);
-			im.setAttribute("href", option + ".png");//option + ".png");
+			im.setAttribute("href", "img/" + option + ".png");//option + ".png");
 			p.appendChild(im);
 			defs.appendChild(p);
 		}
@@ -84,31 +89,44 @@ class Dots {
 			circle.setAttribute("cy", yPos);
 			circle.setAttribute("r", this.radiusLeft);
 
-			//circle.setAttribute("fill", 'blue');
+			// circle.setAttribute("fill", 'white');
 			circle.setAttribute("fill", "url(#i"+option+")");
+
+			if (this.chart.getAttribute("selectedOpt") == option) {
+				// circle.setAttribute("stroke-width", "5px");
+				// circle.setAttribute("stroke", "red");
+				circle.setAttribute("fill-opacity", 1);
+			} else {
+				// circle.setAttribute("stroke-width", "0px");
+				circle.setAttribute("fill-opacity", 0.3);
+			}
+			
 
 			let c = this.chart;
 			let opt = option;
 			let s = this;
 			let g = this.graph;
+			let selected = c.getAttribute("selectedOpt");
 
 			circle.addEventListener("click", function(event){
 				c.setAttribute("selectedOpt", opt);
-				s.drawGraph();
-			    // c.setAttribute("selectedOpt", opt);
-			    // if 
+				s.draw();
 		    });
 
 			circle.addEventListener("mouseover", function(event){
-			    circle.setAttribute("fill-opacity", 0.5);
+			    if (opt != selected) {
+			    	circle.setAttribute("fill-opacity", 1);
+			    }
 
 		    });
 
 		    circle.addEventListener("mouseleave", function(event){
-			    circle.setAttribute("fill-opacity", 1);
+			    if (opt != selected) {
+			    	circle.setAttribute("fill-opacity", 0.3);
+			    }
 		    });
 
-			this.chart.appendChild(circle);
+			this.sidebar.appendChild(circle);
 
 			yPos += this.intervalLeft;
 		}
@@ -122,6 +140,15 @@ class Dots {
 			circle.setAttribute("r", this.radiusRight);
 
 			circle.setAttribute("fill", '#7E30A1');
+
+			if (this.chart.getAttribute("selectedLabel") == label) {
+				// circle.setAttribute("stroke", "red");
+				// circle.setAttribute("stroke-width", "5px");
+				circle.setAttribute("fill-opacity", 1);
+			} else {
+				// circle.setAttribute("stroke-width", "0px");
+				circle.setAttribute("fill-opacity", 0.3);
+			}
 
 			let textLabel = document.createElementNS(svgns, "text");
 			textLabel.setAttribute('x', xPosRight);
@@ -137,27 +164,33 @@ class Dots {
 			let l = label;
 			let s = this;
 			let g = this.graph;
+			let selectedL = c.getAttribute("selectedLabel");
 
 			circle.addEventListener("click", function(event){
 				c.setAttribute("selectedLabel", l);
-				s.drawGraph();
+				s.draw();
 			    // c.setAttribute("selectedOpt", opt);
 			    // if 
 		    });
 
 			circle.addEventListener("mouseover", function(event){
-			    circle.setAttribute("fill-opacity", 0.5);
+			    if (l != selectedL) {
+			    	circle.setAttribute("fill-opacity", 1);
+			    }
 		    });
 
 		    circle.addEventListener("mouseleave", function(event){
-			    circle.setAttribute("fill-opacity", 1);
+			    if (l != selectedL) {
+			    	circle.setAttribute("fill-opacity", 0.3);
+			    }
 		    });
 
-			this.chart.appendChild(circle);
-			this.chart.appendChild(textLabel);
+			this.sidebar.appendChild(circle);
+			this.sidebar.appendChild(textLabel);
 
 			yPos += this.intervalRight;
 		}
+		this.chart.appendChild(this.sidebar);
 	}
 
 	drawGraph() {
