@@ -69,13 +69,19 @@ class coordinatedPie {
 	}
 
 	drawLabels () {
-		var interval = (this.w - this.offset) / this.data1.length;
-		var curX = this.x + 2 * this.offset;
+		var interval = (this.w - this.offset) / 5;
+		var curX = this.x + 4 * this.offset;
+		var curY = this.y + this.h - this.offset * 2;
 
 		for (let i = 0; i < this.data1.length; i++) {
+
 			let l = document.createElementNS(svgns, "text");
+			if (i == 5) {
+				curY += this.offset;
+				curX = this.x + 4 * this.offset;
+			}
 			l.setAttribute('x', curX);
-			l.setAttribute('y', this.y + this.h - this.offset);	
+			l.setAttribute('y', curY);	
 			l.setAttribute('fill', this.colors[i]);
 
 			let t = document.createTextNode(this.data1[i][this.categoryName]);
@@ -104,7 +110,7 @@ class coordinatedPie {
 			large = angle > Math.PI ? 1 : 0;
 			curAngle += angle;
 			quadrant = Math.floor(curAngle / (Math.PI / 2));
-			
+
 			var remainder = 0;
 
 			if (quadrant != 0) {
