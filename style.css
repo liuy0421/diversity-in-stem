@@ -20,14 +20,22 @@ body {
 
 #title {
 	padding-top: 35vh;
-	font-size: 100px;
-	color: #7f1505;
+	/*font-size: px;*/
+	
+	/*background: white;*/
 	/*opacity: .8;*/
 }
 
 h1 {
 	/*opacity: 1;*/
 	margin: 0 auto;
+	color: #7f1505;
+	font-size: 50px;
+	background: white;
+}
+
+h2 {
+	background: white;
 }
 
 #intro {
