@@ -9,8 +9,9 @@ body {
 
 #landing-page {
 	/*background: white;*/
-	background-image: url(img/wordcloud.jpeg);
-	opacity: 0.3; 
+	background-image: url(img/news.png);
+	background-size: 100vh;
+	/*opacity: 0.3; */
 	width: 100vw;
 	height: 100vh;
 /*	margin: 0 auto;
@@ -21,11 +22,11 @@ body {
 	padding-top: 35vh;
 	font-size: 100px;
 	color: #7f1505;
-	opacity: .8;
+	/*opacity: .8;*/
 }
 
 h1 {
-	opacity: 1;
+	/*opacity: 1;*/
 	margin: 0 auto;
 }
 
