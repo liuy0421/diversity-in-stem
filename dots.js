@@ -124,7 +124,6 @@ class Dots {
 			}
 
 		
-			
 
 			let c = this.chart;
 			let opt = option;

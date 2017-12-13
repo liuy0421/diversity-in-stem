@@ -4,7 +4,7 @@ class myBar {
 		this.y = y;
 		this.w = w;
 		this.h = h;
-		this.offset = .15 * this.w;
+		this.offset = .1 * this.w;
 		this.strokeWidth = "1.5";
 		this.labelX = data["header"][0];
 		this.labelY = data["header"][1];
@@ -71,10 +71,10 @@ class myBar {
 
 		var fill = this.fill;
 		var hover = this.hover;
-		var interval = (this.w - this.offset * 2) / (this.dataSet.length * 2 + 1);
-		var x_pos = this.x + this.offset + interval;
+		let interval = (this.w - this.offset * 2) / (this.dataSet.length * 2 + 1);
+		let x_pos = this.x + this.offset + interval;
 
-		var value;
+		let value;
 		for (value in this.dataSet) {
 			let rect = document.createElementNS(svgns, "rect")
 			rect.setAttribute('x', x_pos);
@@ -84,27 +84,35 @@ class myBar {
 			rect.setAttribute('fill', this.fill);
 
 			let val = this.dataSet[value][this.labelY];
-			var chart = this.chart;
+			let chart = this.chart;
+			let yp = (this.y + this.h - this.offset - (this.h - (this.offset * 2)) * this.dataSet[value][this.labelY] / this.maxVal) - this.offset /2;
+			let valLabel = document.createElementNS(svgns, "text");
+			let labelXpos = x_pos;
+			let labelTextNode = document.createTextNode(val);
 
 			rect.addEventListener("mouseover", function(event){
 			    rect.setAttribute("fill", hover);
 
-			    let title = document.createElementNS(svgns, "title");
-				title.innerHTML =  val;
-				rect.appendChild(title);
-				// chart.appendChild(textBox);
+				valLabel.setAttribute('x', labelXpos + interval/2);
+				valLabel.setAttribute('y', yp);
+				valLabel.setAttribute("font-size", "15px");
+
+				valLabel.appendChild(labelTextNode);
+				chart.appendChild(valLabel);
 		    });
 
 			rect.addEventListener("mouseleave", function(event){
 				rect.setAttribute("fill", fill);
+				valLabel.removeChild(labelTextNode);
+				chart.removeChild(valLabel);
 			});
 
 			this.chart.appendChild(rect);
 
 			let label = document.createElementNS(svgns, "text");
 			label.setAttribute('x', x_pos + interval/2);
-			label.setAttribute('y', this.y + this.h - this.offset * 3 / 4);
-			label.setAttribute("font-size", "12px");
+			label.setAttribute('y', this.y + this.h - this.offset /2);
+			label.setAttribute("font-size", "15px");
 
 			let textNode = document.createTextNode(this.dataSet[value][this.labelX]);
 			label.appendChild(textNode);
