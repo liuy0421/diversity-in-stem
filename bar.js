@@ -1,5 +1,5 @@
 class myBar {
-	constructor(x, y, w, h, data, fill, hover, id, svg) {
+	constructor(x, y, w, h, data, fill, hover, id, svg, moneyData) {
 		this.x = x;
 		this.y = y;
 		this.w = w;
@@ -10,6 +10,7 @@ class myBar {
 		this.labelY = data["header"][1];
 		this.dataSet = data["values"];
 		this.ID = id;
+		this.printMoney = moneyData;
 
 		this.maxVal = this.dataSet.reduce(function(acc, point) {
 			return Math.max(point[data["header"][1]], acc);
@@ -20,8 +21,23 @@ class myBar {
 
 		this.chart = document.createElementNS(svgns, "g");
 		this.chart.setAttribute("id", this.ID);
-		svg.appendChild(this.chart);
+		this.svg = svg;
+		this.svg.appendChild(this.chart);
 
+	}
+
+	setData(data) {
+		this.labelX = data["header"][0];
+		this.labelY = data["header"][1];
+		this.dataSet = data["values"];
+		this.maxVal = this.dataSet.reduce(function(acc, point) {
+			return Math.max(point[data["header"][1]], acc);
+		}, this.dataSet[0][this.labelY]);
+	}
+
+	setColors(fill, hover) {
+		this.fill = fill;
+		this.hover = hover;
 	}
 
 	drawAxes () {
@@ -54,9 +70,9 @@ class myBar {
 		this.chart.appendChild(labelX);
 
 		let labelY = document.createElementNS(svgns, "text");
-		labelY.setAttribute('x', this.x + this.offset/2);
+		labelY.setAttribute('x', this.x + 3 * this.offset / 4);
 		labelY.setAttribute('y', this.y + this.h / 2);
-		labelY.setAttribute('transform', "rotate(-90 " + this.x + this.offset/2 + "," + this.y + this.h / 2 + ")");
+		labelY.setAttribute('transform', "rotate(-90 " + this.x + 3 * this.offset / 4+ "," + this.y + this.h / 2 + ")");
 		// labelY.setAttribute('translateY', "100")
 		
 
@@ -67,8 +83,6 @@ class myBar {
 	}
 
 	drawBar() {
-		this.drawAxes();
-
 		var fill = this.fill;
 		var hover = this.hover;
 		let interval = (this.w - this.offset * 2) / (this.dataSet.length * 2 + 1);
@@ -88,6 +102,11 @@ class myBar {
 			let yp = (this.y + this.h - this.offset - (this.h - (this.offset * 2)) * this.dataSet[value][this.labelY] / this.maxVal) - this.offset /2;
 			let valLabel = document.createElementNS(svgns, "text");
 			let labelXpos = x_pos;
+
+			if (this.printMoney) {
+				val = "$" + val;
+			}
+
 			let labelTextNode = document.createTextNode(val);
 
 			rect.addEventListener("mouseover", function(event){
@@ -122,4 +141,13 @@ class myBar {
 
 		}
 	}
+
+	draw() {
+		this.svg.removeChild(this.chart);
+		this.chart = document.createElementNS(svgns, "g");
+		this.svg.appendChild(this.chart);
+		this.drawBar();
+		this.drawAxes();
+	}
+	
 }

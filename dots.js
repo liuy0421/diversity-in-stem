@@ -21,10 +21,10 @@ class Dots {
 		this.labels = data["labels"];
 		this.categories = data["categories"];
 		this.data = {};
-		this.intervalLeft = this.h / (this.options.length * 2);
+		this.intervalLeft = this.h / (this.options.length + 1);
 		this.intervalRight = (this.h - this.offset * 4)/ (this.labels.length * 2);
 
-		this.radiusLeft = this.intervalLeft * .8;
+		this.radiusLeft = this.intervalLeft * .7;
 		this.radiusRight = this.radiusLeft;
 
 		if (this.radiusLeft > this.h * .12) {
@@ -62,8 +62,8 @@ class Dots {
 		// console.log(this.chart.getAttribute("selectedOpt"));
 
 		let yPos = this.y;
-		let xPosLeft = this.x + this.offset / 2 + this.radiusLeft;
-		let xPosRight = this.x + this.w - this.offset / 2 - this.radiusRight;
+		let xPosLeft = this.x +  this.radiusLeft;
+		let xPosRight = this.x + this.w -  2 * this.offset - this.radiusRight;
 
   		this.chart.removeChild(this.sidebar);
   		this.sidebar = document.createElementNS(svgns, "g");
@@ -91,7 +91,14 @@ class Dots {
 			this.svg.appendChild(defs);
 		}
 
+		let i = 0;
+
 		for (const option of this.options) {
+			if (i == 4) {
+				xPosLeft += 2 * this.intervalLeft;
+				yPos = this.y + this.intervalLeft;
+			}
+
 			yPos += this.intervalLeft;
 			let circle = document.createElementNS(svgns, "circle");
 			circle.setAttribute("cx", xPosLeft);
@@ -153,6 +160,7 @@ class Dots {
 			this.sidebar.appendChild(textLabel);
 
 			yPos += this.intervalLeft;
+			i++;
 		}
 
 		yPos = this.y + this.offset * 2;

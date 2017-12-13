@@ -4,9 +4,49 @@ body {
 	text-anchor: middle;
 	/*background-color: #f5f5dc;*/
 	/*font-size: 24px;*/
+	margin: 0 auto;
 }
 
+#landing-page {
+	/*background: white;*/
+	background-image: url(img/wordcloud.jpeg);
+	opacity: 0.3; 
+	width: 100vw;
+	height: 100vh;
+/*	margin: 0 auto;
+	padding: none;*/
+}
 
+#title {
+	padding-top: 35vh;
+	font-size: 100px;
+	color: #7f1505;
+	opacity: .8;
+}
+
+h1 {
+	opacity: 1;
+	margin: 0 auto;
+}
+
+#intro {
+	width: 100vw;
+	height: 70vh;
+	padding-top: 30vh;
+	/*padding-bottom: 0;*/
+	position: relative;
+	background: #62A1Ae;
+
+}
+
+#top-tech {
+	width: 100vw;
+	height: 97vh;
+	padding-top: 3vh;
+	/*padding-bottom: 0;*/
+
+
+}
 
 /*text {
 	font-family: Georgia;
