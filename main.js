@@ -1,5 +1,6 @@
 var topTechSVG = document.getElementById("top-tech-graph");
 var salaryBarSVG = document.getElementById("salary-bar-graph");
+var kidsSVG = document.getElementById("kids-graph");
 // var svg3 = document.getElementById("svg3");
 // var svg4 = document.getElementById("svg4");
 // var svg5 = document.getElementById("svg5");
@@ -134,7 +135,7 @@ var dataBars = { "options": ["Biology", "Computer Science", "Math", "Chemistry",
 
 // data from tech companies
 // https://docs.google.com/spreadsheets/u/1/d/1e5jevLJTK9Aayob2msk4Ss9qIMCqfris4m_m0kXO-7s/edit#gid=1925490147
-var techDotsData = { "options": ["Facebook", "Google", "Twitter", "Uber", "Amazon", "Apple", "Microsoft"],
+var techDotsData = { "options": ["Facebook", "Google", "Twitter", "Uber", "Amazon", "Apple", "Microsoft", "USA"],
        "labels": ["Gender", "Race"],
        "categories": {"Gender": ["Male", "Female"], "Race": ["White", "Black", "Asian", "Latinx", "Multiracial", "Other"]},
        "Facebook": {"Male": 67, "Female": 33, "White": 53, "Black": 2, "Asian": 38, "Latinx": 4, "Multiracial": 3, "Other": 0},//
@@ -143,7 +144,9 @@ var techDotsData = { "options": ["Facebook", "Google", "Twitter", "Uber", "Amazo
        "Uber": {"Male": 64, "Female": 36, "White": 50, "Black": 9, "Asian": 31, "Latinx": 6, "Multiracial": 4, "Other": 1},//
        "Amazon": {"Male": 63, "Female": 37, "White": 60, "Black": 15, "Asian": 13, "Latinx": 9, "Multiracial": 0,"Other": 3},//
        "Apple": {"Male": 70, "Female": 30, "White": 62, "Black": 10, "Asian": 21, "Latinx": 13, "Multiracial": 2,"Other": 1},//
-       "Microsoft": {"Male": 72, "Female": 28, "White": 59, "Black": 4, "Asian": 29, "Latinx": 5, "Multiracial": 1,"Other": 1}//
+       "Microsoft": {"Male": 72, "Female": 28, "White": 59, "Black": 4, "Asian": 29, "Latinx": 5, "Multiracial": 1,"Other": 1},//
+       "USA": {"Male": 49, "Female": 51, "White": 64, "Black": 12, "Asian": 4, "Latinx": 16, "Multiracial": 1,"Other": 3}
+
 };
 
 // data from fatherly.com
@@ -158,10 +161,16 @@ var w1 = document.getElementById("top-tech-graph").getAttribute("width");
 var h1 = document.getElementById("top-tech-graph").getAttribute("height");
 var techDots = new Dots(0, 0, w1, h1, techDotsData, "tech-dots-chart", topTechSVG, true);
 techDots.draw();
+
 var w2 = document.getElementById("salary-bar-graph").getAttribute("width");
 var h2 = document.getElementById("salary-bar-graph").getAttribute("height");
 var salaryBar = new twoBars(0,0, w2, h2, dataBars, "salary-bar-graph", salaryBarSVG);
 salaryBar.draw();
+
+var w3 = document.getElementById("kids-graph").getAttribute("width");
+var h3 = document.getElementById("kids-graph").getAttribute("height");
+var techDots = new Dots(0, 0, w3, h3, totsTotsData, "kids-chart", kidsSVG, false);
+techDots.draw();
 
 // w = 800;
 

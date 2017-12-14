@@ -22,6 +22,8 @@ class Dots {
 		this.categories = data["categories"];
 		this.data = {};
 		this.intervalLeft = this.h / (this.options.length + 1);
+		this.intervalLeft = this.intervalLeft > this.h * .2 ? this.h * .2 : this.intervalLeft;
+
 		this.intervalRight = (this.h - this.offset * 4)/ (this.labels.length * 2);
 
 		this.radiusLeft = this.intervalLeft * .7;
@@ -64,6 +66,12 @@ class Dots {
 		let yPos = this.y;
 		let xPosLeft = this.x +  this.radiusLeft;
 		let xPosRight = this.x + this.w -  2 * this.offset - this.radiusRight;
+
+		if (this.options.length < 5) {
+			yPos += this.intervalLeft / 2;
+			xPosLeft += this.radiusLeft;
+
+		}
 
   		this.chart.removeChild(this.sidebar);
   		this.sidebar = document.createElementNS(svgns, "g");

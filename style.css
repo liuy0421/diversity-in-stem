@@ -12,8 +12,6 @@ body {
 	background-image: url(img/news.png);
 	background-size: 100vh;
 	/*opacity: 0.3; */
-	width: 100vw;
-	height: 100vh;
 /*	margin: 0 auto;
 	padding: none;*/
 }
@@ -48,23 +46,62 @@ h2 {
 
 }
 
-#intro {
-	width: 100vw;
-	height: 70vh;
-	padding-top: 30vh;
-	/*padding-bottom: 0;*/
-	position: relative;
-	background: #62A1Ae;
-
+h4 {
+	color: #FCC800;
 }
 
-#top-tech {
+.full-page {
 	width: 100vw;
-	height: 97vh;
+	height: 100vh;
+}
+
+
+/*#intro {
+	height: 70vh;
+	padding-top: 30vh;
+	padding-bottom: 0;
+	position: relative;
+	background: #62A1Ae;
+	width: 60vw;
+
+}*/
+
+#top-tech {
 	padding-top: 3vh;
 	/*padding-bottom: 0;*/
 
+}
 
+#intro {
+	font-size: 23px;
+}
+
+#salary-bar {
+	padding-top: 5vh;
+
+}
+
+#gender-diff {
+	padding-top: 10vh;
+}
+
+.bold-text {
+	font-size: 50px;
+	color: #FCC800;
+}
+
+.transition {
+	height: 90vh;
+	padding-top: 10vh;
+
+	background: #62A1Ae;
+}
+
+.transition-text {
+	width: 70vw;
+	margin: 0 auto;
+	color: white;
+	font-size: 30px;
 }
 
 /*text {
