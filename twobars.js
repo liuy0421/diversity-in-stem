@@ -1,6 +1,6 @@
 class twoBars {
 
-	constructor (x, y, w, h, data, id, svg) {
+	constructor (x, y, w, h, data, id, svg, money) {
 		this.x = x;
 		this.y = y;
 		this.w = w;
@@ -19,9 +19,9 @@ class twoBars {
 		              '#B0D3E3', '#FDDDD3', '#DBE97D', '#9BC3CB', '#AC7BC3'];
 		 
 		this.bar1 = new myBar(this.x + this.w * .2, this.y, this.w * .4,
-							  this.h - this.offset, this.data[this.selectedOpt][0], this.colors[0], this.hover[0], id + "bar1", this.svg, true);
+							  this.h - this.offset, this.data[this.selectedOpt][0], this.colors[0], this.hover[0], id + "bar1", this.svg, money);
 		this.bar2 = new myBar(this.x + this.w * .6, this.y, this.w * .4,
-							  this.h - this.offset, this.data[this.selectedOpt][1], this.colors[0], this.hover[0], id + "bar2", this.svg, true);
+							  this.h - this.offset, this.data[this.selectedOpt][1], this.colors[0], this.hover[0], id + "bar2", this.svg, money);
 
 
 	

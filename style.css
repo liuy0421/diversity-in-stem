@@ -43,6 +43,7 @@ h1 {
 h2 {
 	/*background: white;*/
 	font-size: 40px;
+	color: #1d3b6b;
 
 }
 
@@ -103,6 +104,18 @@ h4 {
 	color: white;
 	font-size: 30px;
 }
+
+#kids{
+	padding-top: 5vh;
+}
+
+#majors {
+	padding-top: 5vh;
+}
+
+/*#majors-text {
+	font-size: 18px;
+}*/
 
 /*text {
 	font-family: Georgia;

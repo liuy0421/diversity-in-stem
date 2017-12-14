@@ -1,6 +1,8 @@
 var topTechSVG = document.getElementById("top-tech-graph");
 var salaryBarSVG = document.getElementById("salary-bar-graph");
 var kidsSVG = document.getElementById("kids-graph");
+var majorSVG = document.getElementById("college-major-graph");
+var degreeBarSVG = document.getElementById("degree-bar-graph");
 // var svg3 = document.getElementById("svg3");
 // var svg4 = document.getElementById("svg4");
 // var svg5 = document.getElementById("svg5");
@@ -157,6 +159,43 @@ var totsTotsData = { "options": ["Boys", "Girls"],
        "Girls": {"STEM Careers": 41, "Non-STEM Careers": 59}
 };
 
+
+var degreeBarsData = { "options": ["Bachelor's", "Master's", "Doctorate"],
+                 "data": {"Bachelor's": [{"header": ["Gender" , "Population"],
+                                     "values": [{"Gender": "Men", "Population": 7275000},
+                                                  {"Gender": "Women", "Population": 6156000}]},
+                                      {"header": ["Race" , "Population"],
+                                       "values": [{"Race": "White", "Population": 9784000},
+                                                  {"Race": "Black", "Population": 857000},
+                                                  {"Race": "Asian", "Population": 1355000},
+                                                  {"Race": "Latinx", "Population": 1123000},
+                                                  {"Race": "Indigenous", "Population": 46000},
+                                                  {"Race": "Other", "Population": 267000}]}],
+                          "Master's": [{"header": ["Gender" , "Population"],
+                                       "values": [{"Gender": "Men", "Population": 3381000},
+                                                  {"Gender": "Women", "Population": 3501000}]},
+                                      {"header": ["Race" , "Population"],
+                                       "values": [{"Race": "White", "Population": 4977000},
+                                                  {"Race": "Black", "Population": 488000},
+                                                  {"Race": "Asian", "Population": 845000},
+                                                  {"Race": "Latinx", "Population": 445000},
+                                                  {"Race": "Indigenous", "Population": 16000},
+                                                  {"Race": "Other", "Population": 111000}]}],
+                           "Doctorate": [{"header": ["Gender" , "Population"],
+                                       "values": [{"Gender": "Men", "Population": 741000},
+                                                  {"Gender": "Women", "Population": 413000}]},
+                                      {"header": ["Race" , "Population"],
+                                       "values": [{"Race": "White", "Population": 795000},
+                                                  {"Race": "Black", "Population": 47000},
+                                                  {"Race": "Asian", "Population": 239000},
+                                                  {"Race": "Latinx", "Population": 51000},
+                                                  {"Race": "Indigenous", "Population": 4000},
+                                                  {"Race": "Other", "Population": 18000}]}]}};
+
+
+
+
+
 var w1 = document.getElementById("top-tech-graph").getAttribute("width");
 var h1 = document.getElementById("top-tech-graph").getAttribute("height");
 var techDots = new Dots(0, 0, w1, h1, techDotsData, "tech-dots-chart", topTechSVG, true);
@@ -164,7 +203,7 @@ techDots.draw();
 
 var w2 = document.getElementById("salary-bar-graph").getAttribute("width");
 var h2 = document.getElementById("salary-bar-graph").getAttribute("height");
-var salaryBar = new twoBars(0,0, w2, h2, dataBars, "salary-bar-graph", salaryBarSVG);
+var salaryBar = new twoBars(0,0, w2, h2, dataBars, "salary-bar-graph", salaryBarSVG, true);
 salaryBar.draw();
 
 var w3 = document.getElementById("kids-graph").getAttribute("width");
@@ -172,6 +211,15 @@ var h3 = document.getElementById("kids-graph").getAttribute("height");
 var techDots = new Dots(0, 0, w3, h3, totsTotsData, "kids-chart", kidsSVG, false);
 techDots.draw();
 
+var w4 = document.getElementById("college-major-graph").getAttribute("width");
+var h4 = document.getElementById("college-major-graph").getAttribute("height");
+var collegePie = new coordinatedPie(0, 0, w4, h4, dataPie, "college-major-chart", majorSVG);
+collegePie.drawPie();
+
+var w5 = document.getElementById("degree-bar-graph").getAttribute("width");
+var h5 = document.getElementById("degree-bar-graph").getAttribute("height");
+var degreeBar = new twoBars(0,0, w5, h5, degreeBarsData, "degree-bar-graph", degreeBarSVG, false);
+degreeBar.draw();
 // w = 800;
 
 // var bar = new myBar(0, 0, w, h, data, "#6b4455", "#996461", "bar-chart", svg1, false);

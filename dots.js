@@ -69,7 +69,7 @@ class Dots {
 
 		if (this.options.length < 5) {
 			yPos += this.intervalLeft / 2;
-			xPosLeft += this.radiusLeft;
+			xPosLeft += this.radiusLeft *2;
 
 		}
 
