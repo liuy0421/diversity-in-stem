@@ -20,22 +20,32 @@ body {
 
 #title {
 	padding-top: 35vh;
+	width: 60vw;
+	margin: 0 auto;
+
 	/*font-size: px;*/
 	
 	/*background: white;*/
 	/*opacity: .8;*/
 }
 
+#title-content {
+	background: white;
+}
+
 h1 {
 	/*opacity: 1;*/
 	margin: 0 auto;
 	color: #7f1505;
-	font-size: 50px;
-	background: white;
+	font-size: 100px;
+	/*background: white;*/
+	
 }
 
 h2 {
-	background: white;
+	/*background: white;*/
+	font-size: 40px;
+
 }
 
 #intro {
