@@ -1,5 +1,5 @@
 var topTechSVG = document.getElementById("top-tech-graph");
-// var svg2 = document.getElementById("svg2");
+var salaryBarSVG = document.getElementById("salary-bar-graph");
 // var svg3 = document.getElementById("svg3");
 // var svg4 = document.getElementById("svg4");
 // var svg5 = document.getElementById("svg5");
@@ -158,6 +158,10 @@ var w1 = document.getElementById("top-tech-graph").getAttribute("width");
 var h1 = document.getElementById("top-tech-graph").getAttribute("height");
 var techDots = new Dots(0, 0, w1, h1, techDotsData, "tech-dots-chart", topTechSVG, true);
 techDots.draw();
+var w2 = document.getElementById("salary-bar-graph").getAttribute("width");
+var h2 = document.getElementById("salary-bar-graph").getAttribute("height");
+var salaryBar = new twoBars(0,0, w2, h2, dataBars, "salary-bar-graph", salaryBarSVG);
+salaryBar.draw();
 
 // w = 800;
 
