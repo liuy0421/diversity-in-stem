@@ -1,0 +1,12 @@
+This is our final project for COMP-177 Data Visualization.
+
+This year, there have been multiple reports of sexism and racism in major tech companies; furthermore, largely dominated by white men, STEM fields lacks representation of women and people of color. 
+
+We chose the topic of diversity in STEM because, as we live in society highly reliant on the constant development of new science and technology, improving representation in STEM is a pressing issue. 
+
+Through our presentation, we hope to provide the audience with evidence for the lack of representation in STEM, remind them the urgency of the problem, and motivate them to take action and be the change.
+
+Our visualization focuses on disparity in race and gender. However, we would like to point out that there's little to no available data regarding the experience of gender non-conforming people in STEM. We recognize that these visualizations are not a perfect representation of the gender breakdown, and that the lived experiences of people outside the gender binary is real.
+
+Let's start exploring! We programmed implemented all visualizations on this website using javascript svg library, and we also used Google Fonts, JQuery, and Scrollify.
+
