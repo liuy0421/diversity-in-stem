@@ -2,29 +2,18 @@ body {
 	font-family: 'Barlow Semi Condensed', sans-serif;
 	text-align: center;
 	text-anchor: middle;
-	/*background-color: #f5f5dc;*/
-	/*font-size: 24px;*/
 	margin: 0 auto;
 }
 
 #landing-page {
-	/*background: white;*/
 	background-image: url(img/news.png);
 	background-size: 100vh;
-	/*opacity: 0.3; */
-/*	margin: 0 auto;
-	padding: none;*/
 }
 
 #title {
 	padding-top: 35vh;
 	width: 60vw;
 	margin: 0 auto;
-
-	/*font-size: px;*/
-	
-	/*background: white;*/
-	/*opacity: .8;*/
 }
 
 #title-content {
@@ -33,16 +22,12 @@ body {
 }
 
 h1 {
-	/*opacity: 1;*/
 	margin: 0 auto;
 	color: #7f1505;
 	font-size: 100px;
-	/*background: white;*/
-	
 }
 
 h2 {
-	/*background: white;*/
 	font-size: 40px;
 	color: #1d3b6b;
 	margin: 0 auto;
@@ -69,10 +54,6 @@ a {
 	margin: 0 auto;
 }
 
-#container {
-	/*float: left;*/
-}
-
 .stem-links {
 	margin: 0 auto;
 	padding: none;
@@ -90,7 +71,6 @@ a {
 
 #top-tech {
 	padding-top: 3vh;
-	/*padding-bottom: 0;*/
 
 }
 
@@ -130,15 +110,7 @@ a {
 	color: black;
 }
 
-#kids{
-	padding-top: 5vh;
-}
-
-#majors {
-	padding-top: 5vh;
-}
-
-#degrees {
+#kids, #majors, #degrees{
 	padding-top: 5vh;
 }
 
@@ -147,45 +119,40 @@ a {
 }
 
 #navbar {
-	/*position: relative;*/
 	z-index: 1;
-	width: 15vw;
-	/*background: green;*/
+	width: 18vw;
 	height: 100vh;	
 	position: fixed;
-	margin-left: 85vw;
+	margin-left: 82vw;
 	padding-top: 2.5vh;
-	/*color: white;*/
+}
+
+#github-link {
+	font-size: 30px;
 }
 
 .button {
 	margin-bottom: 5vh;
-	
 }
 
 .button-text {
-	width: 9vw;
-	height: 2vh;
-	/*background: green;*/
+	width: 12vw;
 	color: #1d3b6b;
 	opacity: 0;
 	z-index: 1;
 	font-size: 1.5vw;
 	vertical-align: top;
 	display: inline-block;
-	/*text-align: right;*/
 }
 
 button {
-	/*margin-left: 11vw;*/
 	background: #1d3b6b;
 	height: 2.5vw;
     width: 2.5vw;
     border-radius: 50%;
     display: inline-block;
     border: none;
-    /*display: block;*/
-    /*border: 1px solid #000;*/
+
 }
 
 button:focus {
@@ -195,11 +162,3 @@ button:focus {
 button:hover {
 	background: #FCC800;
 }
-
-/*#majors-text {
-	font-size: 18px;
-}*/
-
-/*text {
-	font-family: Georgia;
-}*/
