@@ -6,9 +6,15 @@ if ($(window).width() / $(window).height() > 3/2) {
     });
 }
 
-var selected = "#landing-page-button"
+var i = 0;
+var buttons = ["#landing-page-button", "#intro-button", "#top-tech-button", 
+               "#salary-button", "#gender-diff-button", "#kids-button", 
+               "#majors-button", "#degrees-button", "#conclusion-button", 
+               "#sources-button"];
+var selected = buttons[0];
 var yellow = "#FCC800";
 var blue = "#1d3b6b";
+var lastScrollTop = 0;
 
 $(selected).css("background", yellow);
 
@@ -30,6 +36,7 @@ $('#landing-page-button').click(function() {
     $(selected).css("background", blue);
     selected = '#landing-page-button';
     $(selected).css("background", yellow);
+    i = 0;
 });
 
 $('#intro-button').click(function() {
@@ -37,6 +44,7 @@ $('#intro-button').click(function() {
     $(selected).css("background", blue);
     selected = '#intro-button';
     $(selected).css("background", yellow);
+    i = 1;
 });
 
 $('#top-tech-button').click(function() {
@@ -44,6 +52,7 @@ $('#top-tech-button').click(function() {
     $(selected).css("background", blue);
     selected = '#top-tech-button';
     $(selected).css("background", yellow);
+    i = 2;
 });
 
 $('#salary-button').click(function() {
@@ -51,6 +60,7 @@ $('#salary-button').click(function() {
     $(selected).css("background", blue);
     selected = '#salary-button';
     $(selected).css("background", yellow);
+    i = 3;
 });
 
 $('#gender-diff-button').click(function() {
@@ -58,6 +68,7 @@ $('#gender-diff-button').click(function() {
     $(selected).css("background", blue);
     selected = '#gender-diff-button';
     $(selected).css("background", yellow);
+    i = 4;
 });
 
 $('#kids-button').click(function() {
@@ -65,6 +76,7 @@ $('#kids-button').click(function() {
     $(selected).css("background", blue);
     selected = '#kids-button';
     $(selected).css("background", yellow);
+    i = 5;
 });
 
 $('#majors-button').click(function() {
@@ -72,6 +84,7 @@ $('#majors-button').click(function() {
     $(selected).css("background", blue);
     selected = '#majors-button';
     $(selected).css("background", yellow);
+    i = 6;
 });
 
 $('#degrees-button').click(function() {
@@ -79,6 +92,7 @@ $('#degrees-button').click(function() {
     $(selected).css("background", blue);
     selected = '#degrees-button';
     $(selected).css("background", yellow);
+    i = 7;
 });
 
 $('#conclusion-button').click(function() {
@@ -86,6 +100,7 @@ $('#conclusion-button').click(function() {
     $(selected).css("background", blue);
     selected = '#conclusion-button';
     $(selected).css("background", yellow);
+    i = 8;
 });
 
 $('#sources-button').click(function() {
@@ -94,4 +109,5 @@ $('#sources-button').click(function() {
     selected = '#sources-button';
     $(selected).css("background", yellow);
     $(seclected + ":hover").css("background", blue);
+    i = 9;
 });
