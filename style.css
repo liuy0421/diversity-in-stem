@@ -45,7 +45,7 @@ h2 {
 	/*background: white;*/
 	font-size: 40px;
 	color: #1d3b6b;
-
+	margin: 0 auto;
 }
 
 h4 {
@@ -81,22 +81,12 @@ a {
 }
 
 #sources {
-	background: #FCC800;
+	background: #8DA153;
 }
 
 .blue {
 	color: #1d3b6b;
 }
-
-/*#intro {
-	height: 70vh;
-	padding-top: 30vh;
-	padding-bottom: 0;
-	position: relative;
-	background: #62A1Ae;
-	width: 60vw;
-
-}*/
 
 #top-tech {
 	padding-top: 3vh;
@@ -154,6 +144,36 @@ a {
 
 #conclusion {
 	font-size: 24px;
+}
+
+#navbar {
+	/*position: relative;*/
+	z-index: 1;
+	width: 4vw;
+	/*background: green;*/
+	height: 100vh;	
+	position: fixed;
+	margin-left: 96vw;
+	padding-top: 2.5vh;
+	/*color: white;*/
+}
+
+.button {
+	margin-bottom: 5vh;
+	
+}
+
+button {
+	background: #1d3b6b;
+	height: 2.5vw;
+    width: 2.5vw;
+    border-radius: 50%;
+    border: none;
+    /*border: 1px solid #000;*/
+}
+
+button:hover {
+	background: #FCC800;
 }
 
 /*#majors-text {
