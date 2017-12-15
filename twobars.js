@@ -28,10 +28,13 @@ class twoBars {
 
 		this.chart = document.createElementNS(svgns, "g");
 		this.chart.setAttribute("id", this.ID);
+		this.buttons = document.createElementNS(svgns, "g");
+		this.chart.appendChild(this.buttons);
 		svg.appendChild(this.chart);
 	}
 
 	drawButtons() {
+		this.chart.removeChild(this.buttons);
 		let xpos = this.x + this.offset /3;
 		let width = this.w * .17;
 
@@ -49,16 +52,23 @@ class twoBars {
 			rect.setAttribute("y", ypos);
 			rect.setAttribute("height", height);
 			rect.setAttribute("width", width);
-			rect.setAttribute("fill", this.colors[i]);
+			if (option != this.selectedOpt) {
+				rect.setAttribute("fill", this.hover[i]);
+			} else {
+				rect.setAttribute("fill", this.colors[i]);
+			}
 
 			let textLabel = document.createElementNS(svgns, "text");
 			textLabel.setAttribute("x", xpos + width / 2);
 			textLabel.setAttribute("y", ypos + 5 +  height / 2);
+			if (option != this.selectedOpt) {
+				textLabel.setAttribute("opacity", 0.2);
+			}
 			let textNode = document.createTextNode(option);
 			textLabel.appendChild(textNode);
 
-			this.chart.appendChild(rect);
-			this.chart.appendChild(textLabel);
+			this.buttons.appendChild(rect);
+			this.buttons.appendChild(textLabel);
 
 			let hover = this.hover[i];
 			let color = this.colors[i];
@@ -72,24 +82,34 @@ class twoBars {
 				s.selectedOpt = opt;
 				bar1.setColors(color, hover);
 				bar2.setColors(color, hover);
-				console.log(d[opt][0]);
 				bar1.setData(d[opt][0]);
 				bar2.setData(d[opt][1]);
-				bar1.draw();
-				bar2.draw();
+				s.draw();
 			});
 			
 			rect.addEventListener("mouseover", function(event){
-			    rect.setAttribute("fill", hover);
+				if (option != s.selectedOpt) {
+					s.buttons.removeChild(textLabel);
+					textLabel.setAttribute("opacity", 1);
+					s.buttons.appendChild(textLabel);
+			    	rect.setAttribute("fill", color);
+			    }
 		    });
 
 			rect.addEventListener("mouseleave", function(event){
-				rect.setAttribute("fill", color);
+				if (option != s.selectedOpt) {
+					s.buttons.removeChild(textLabel);
+					textLabel.setAttribute("opacity", 0.2);
+					s.buttons.appendChild(textLabel);
+					rect.setAttribute("fill", hover);
+				}
 			});
 
 			ypos += interval;
 			i++;
 		}
+		this.chart.appendChild(this.buttons);
+
 	}
 
 	draw () {
