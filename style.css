@@ -29,6 +29,7 @@ body {
 
 #title-content {
 	background: white;
+	padding: 1vw;
 }
 
 h1 {
@@ -51,11 +52,41 @@ h4 {
 	color: #FCC800;
 }
 
+a {
+	color: #FCC800;
+	text-decoration: none;
+	font-size: 20px;
+	padding: none;
+	margin: 0 auto;
+}
+
 .full-page {
 	width: 100vw;
 	height: 100vh;
 }
 
+.link {
+	margin: 0 auto;
+}
+
+#container {
+	/*float: left;*/
+}
+
+.stem-links {
+	margin: 0 auto;
+	padding: none;
+	width: 30vw;
+	display: inline-block;
+}
+
+#sources {
+	background: #FCC800;
+}
+
+.blue {
+	color: #1d3b6b;
+}
 
 /*#intro {
 	height: 70vh;
@@ -105,6 +136,10 @@ h4 {
 	font-size: 30px;
 }
 
+.black {
+	color: black;
+}
+
 #kids{
 	padding-top: 5vh;
 }
@@ -115,6 +150,10 @@ h4 {
 
 #degrees {
 	padding-top: 5vh;
+}
+
+#conclusion {
+	font-size: 24px;
 }
 
 /*#majors-text {
