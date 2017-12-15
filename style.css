@@ -149,11 +149,11 @@ a {
 #navbar {
 	/*position: relative;*/
 	z-index: 1;
-	width: 4vw;
+	width: 15vw;
 	/*background: green;*/
 	height: 100vh;	
 	position: fixed;
-	margin-left: 96vw;
+	margin-left: 85vw;
 	padding-top: 2.5vh;
 	/*color: white;*/
 }
@@ -163,13 +163,33 @@ a {
 	
 }
 
+.button-text {
+	width: 9vw;
+	height: 2vh;
+	/*background: green;*/
+	color: #1d3b6b;
+	opacity: 0;
+	z-index: 1;
+	font-size: 1.5vw;
+	vertical-align: top;
+	display: inline-block;
+	/*text-align: right;*/
+}
+
 button {
+	/*margin-left: 11vw;*/
 	background: #1d3b6b;
 	height: 2.5vw;
     width: 2.5vw;
     border-radius: 50%;
+    display: inline-block;
     border: none;
+    /*display: block;*/
     /*border: 1px solid #000;*/
+}
+
+button:focus {
+	outline:0;
 }
 
 button:hover {

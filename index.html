@@ -8,19 +8,29 @@
 <body>
 
 	<div id="navbar">
-		<button id="landing-page-button" class="button"> </button>
-		<button id="intro-button" class="button"> </button>
-		<button id="top-tech-button" class="button"> </button>
-		<button id="salary-button" class="button"> </button>
+		<div id="landing-page-button-text" class="button-text">Diversity in STEM</div>
+		<button id="landing-page-button" class="button"></button>
+		<div id="intro-button-text" class="button-text">Intro</div>
+		<button id="intro-button" class="button"></button>
+		<div id="top-tech-button-text" class="button-text">Top Tech Industry</div>
+		<button id="top-tech-button" class="button"> </button>		
+		<div id="salary-button-text" class="button-text">Salaries</div>
+		<button id="salary-button" class="button"> </button>		
+		<div id="gender-diff-button-text" class="button-text">Gender Differences?</div>
 		<button id="gender-diff-button" class="button"> </button>
-		<button id="kids-button" class="button"> </button>
+		<div id="kids-button-text" class="button-text">What do you want to be when you grow up?</div>
+		<button id="kids-button" class="button"> </button>	
+		<div id="majors-button-text" class="button-text">College Majors</div>
 		<button id="majors-button" class="button"> </button>
+		<div id="degrees-button-text" class="button-text">Employees By Degree</div>
 		<button id="degrees-button" class="button"> </button>
-		<button id="conclusion-button" class="button"> </button>
+		<div id="conclusion-button-text" class="button-text">Conclusion</div>
+		<button id="conclusion-button" class="button"> </button>		
+		<div id="sources-button-text" class="button-text">Sources</div>
 		<button id="sources-button" class="button"> </button>
 	</div>
 
-	<div id="landing-page" class="full-page">
+	<div id="landing-page" class="full-page scroll">
 		<div id="title">
 			<div id="title-content">
 			<h1>Diversity in STEM</h1>
@@ -29,7 +39,7 @@
 		</div>
 	</div>
 
-	<div class="transition" >
+	<div class="transition scroll" >
 		<div id="intro" class="transition-text">
 			<p>In a society reliant on the constant development of new science and technology, diversity in STEM fields is a pressing issue. At present, science and technology are largely dominated by white men. These trends are visible throughout higher education, academia, and industry.</p>
 			
@@ -43,7 +53,7 @@
 		</div>
 	</div>
 
-	<div id="top-tech" class="full-page">
+	<div id="top-tech" class="full-page scroll">
 		<h2>Diversity Among Top Tech Companies</h2>
 		<h3>Across industry, women, Latinx, and Black employees are consistently underrepresented when compared <br /> with the total U.S. population distribution. Click to explore!</h3>
 		<svg id="top-tech-graph" width="1000" height="500"></svg>
@@ -51,27 +61,27 @@
 	</div>
 
 
-	<div id="salary-bar" class="full-page">
+	<div id="salary-bar" class="full-page scroll">
 		<h2>Median Annual Salaries of U.S. Scientists & Engineers</h2>
 		<h3>Salary data across all degree levels shows that women and employees of color in STEM fields are paid less <br /> than their male and white counterparts. Some smaller fields such as aerospace engineering <br /> show equal parity, but other fields still need to do better. It's not rocket science!</h3>
 		<svg id="salary-bar-graph" width ="1100" height="500"></svg>
 	</div>
 
-	<div class="transition">
+	<div class="transition scroll">
 		<div id="gender-diff" class="transition-text">
 			<h2 class="bold-text">Let's take a closer look at where the disparities in gender come from.</h2>
 			<p>Some people attribute these phenomena to biological differences, claiming that women simply have different strengths and interests from men. However, we believe that social factors play the most significant role in discouraging women from pursuing careers in STEM.</p>
 		</div>
 	</div>
 
-	<div id="kids" class="full-page">
+	<div id="kids" class="full-page scroll">
 		<h2>"What do you want to be when you grow up?"</h2>
 		<h3>A survey on 500 children from 1 to 10 years old reveals that a greater percentage of young girls than boys are <br /> interested in pursuring a career in STEM. While the most common career aspiration for boys is becoming <br />a professional athlete, over 20% of girls dream of becoming doctors or scientists. </h3>
 		<svg id="kids-graph" width="1000" height="450"></svg>
 
 	</div>
 
-	<div id="majors" class="full-page">
+	<div id="majors" class="full-page scroll">
 		<h2>"What's your major?"</h2>
 		<h3 id="majors-text">These graphs show comparison between the number of women and men majoring in various STEM disciplines. Although a higher <br/>percentage of young girls aspire to pursue STEM careers, by the time they enter college, most have already chosen a different <br/>field of study. It is likely caused by a combination of internalized societal pressure,experiences of sexism, and fewer role models.</h3>
 		<svg id="college-major-graph" width="1000" height="500"></svg>
@@ -79,14 +89,14 @@
 	</div>
 
 
-	<div id="degrees" class="full-page">
+	<div id="degrees" class="full-page scroll">
 		<h2>Employed U.S. Scientist and Engineers by Degree Level</h2>
 		<h3 id="degrees-text">While there are more men with higher STEM degrees than women, the gaps between white and minority employees are <br /> particularly striking, especially when higher degrees translate into better pay and greater status within the field. </h3>
 		<svg id="degree-bar-graph" width="1100" height="500"></svg>
 
 	</div>
 
-	<div class="transition">
+	<div class="transition scroll">
 		<div id="conclusion" class="transition-text">
 			<h2 class="bold-text">Clearly we have a big problem. What's next?</h2>
 			<p>If you're a member of the STEM community, here are a few resources to get started thinking about allyship and how to make our fields more inclusive:</p>
@@ -112,7 +122,7 @@
 		</div>
 	</div>
 
-	<div id="sources" class="transition">
+	<div id="sources" class="transition scroll">
 		<div class="transition-text">
 			<h2>Sources</h2>
 			<p>Top Tech Companies Data, 2016: <a class="blue" href="https://docs.google.com/spreadsheets/d/1e5jevLJTK9Aayob2msk4Ss9qIMCqfris4m_m0kXO-7s/edit#gid=1925490147">Link</a></p>
@@ -123,11 +133,16 @@
 		</div>
 	</div>
 
-	
-</body>
+<!-- Javascript -->
 <script type="text/javascript" src="bar.js"></script>
 <script type="text/javascript" src="twobars.js"></script>
 <script type="text/javascript" src="pie.js"></script>
 <script type="text/javascript" src="dots.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.scrollify.min.js"></script>
+<script type="text/javascript" src="scroll.js"></script>
 <script type="text/javascript" src="main.js"></script>
+</body>
+
+
 </html> 
