@@ -275,13 +275,11 @@ class Dots {
 				total += percentages[j].value;
 			}
 
-			
+
 			let bleb = j;
 
 			circle.addEventListener("mouseleave", function(event){
 		    	dis.curHover = -1;
-		    	console.log("HERE");
-		    	console.log(dis.curHover);
 			    dis.drawGraph();
 		    });
 
@@ -316,6 +314,16 @@ class Dots {
 			} else {
 				catLabel.setAttribute('fill-opacity', 1);
 			}
+ 			
+			catLabel.addEventListener("mouseleave", function(event){
+		    	dis.curHover = -1;
+			    dis.drawGraph();
+		    });
+
+			catLabel.addEventListener("mouseenter", function(event){
+				dis.curHover = i;
+			    dis.drawGraph();
+		    });
 
 			let t = document.createTextNode(percentages[i].label);
 			catLabel.appendChild(t);
@@ -333,6 +341,17 @@ class Dots {
 			} else {
 				catNum.setAttribute('fill-opacity', 1);
 			}
+
+			catNum.addEventListener("mouseleave", function(event){
+		    	dis.curHover = -1;
+			    dis.drawGraph();
+		    });
+
+			catNum.addEventListener("mouseenter", function(event){
+				dis.curHover = i;
+			    dis.drawGraph();
+		    });
+
 
 			let num = document.createTextNode(percentages[i].value + "%");
 			catNum.appendChild(num);

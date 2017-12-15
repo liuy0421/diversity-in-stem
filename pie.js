@@ -1,11 +1,3 @@
-// var dataPie = {"header": ["Women", "Men", "Major" , "Population"],
-//             	  "Men": [{"Major": "CS", "Population": 22},
-//                        	 {"Major": "ChemE", "Population": 7},
-//                        	 {"Major": "Architectural Studies", "Population": 3}],
-//                 "Women": [{"Major": "CS", "Population": 25},
-//                        	 {"Major": "ChemE", "Population": 6},
-//                        	 {"Major": "Architectural Studies", "Population": 1}]};
-
 class coordinatedPie {
 	constructor(x, y, w, h, data, id, svg) {
 		this.x = x;
@@ -29,6 +21,7 @@ class coordinatedPie {
 		this.textBox1 = document.createElementNS(svgns, "text");
 		this.textBox2 = document.createElementNS(svgns, "text");
 		this.majorLabel = document.createElementNS(svgns, "text");
+		this.curHover = -1;
 
 
 		//svg.setAttribute("boarder", "white");
@@ -53,14 +46,13 @@ class coordinatedPie {
 
 		this.chart = document.createElementNS(svgns, "g");
 		this.chart.setAttribute("id", this.ID);
+		this.labels = document.createElementNS(svgns, "g");
+		this.chart.appendChild(this.labels);
+		this.pies = document.createElementNS(svgns, "g");
+		this.chart.appendChild(this.pies);
 		svg.appendChild(this.chart);
 		this.path1 = this.calculatePaths(this.data1, this.cx1, this.cy, this.total1, this.label1, this.radius1);
-		console.log(this.path1);
 		this.path2 = this.calculatePaths(this.data2, this.cx2, this.cy, this.total2, this.label2, this.radius2);
-		console.log(this.path2);
-
-		console.log(this.cx1);
-		console.log(this.radius2);
 
 		// this.colors = ["#FF785A", "#FFC145", "#0FA3B1", "#456990", "#FFB86F"];
 		this.colors = ['#8AD5E0', '#8DA153', '#C8B87F', '#F78E21', '#FCC800', '#ED8B7C', '#9FCADD', 
@@ -69,6 +61,8 @@ class coordinatedPie {
 	}
 
 	drawLabels () {
+		this.chart.removeChild(this.labels);
+		this.labels = document.createElementNS(svgns, "g");
 		var interval = (this.w - this.offset) / 5;
 		var curX = this.x + 4 * this.offset;
 		var curY = this.y + this.h - this.offset * 2;
@@ -82,28 +76,43 @@ class coordinatedPie {
 			}
 			l.setAttribute('x', curX);
 			l.setAttribute('y', curY);	
-			l.setAttribute('fill', this.colors[i]);
+			if (this.curHover == -1 || this.curHover == i) {
+				l.setAttribute('fill', this.colors[i]);
+			} else {
+				l.setAttribute('fill-opacity',0.1);
+			}
+
+			let bleb = i;
+
+			l.addEventListener("mouseover", function(event){
+				this.curHover = bleb;
+				this.drawPie();
+			});
+
+			l.addEventListener("mouseleave", function(event){
+				this.curHover = -1;
+				this.drawPie();
+			});
 
 			let t = document.createTextNode(this.data1[i][this.categoryName]);
 			l.appendChild(t);
-			this.chart.appendChild(l);
+
+			this.labels.appendChild(l);
 
 			curX += interval;
 		}
-
+		this.chart.appendChild(this.labels);
 
 	}
 
 	calculatePaths(data, cx, cy, total, label, radius) {
 		var paths = [];
 		var curX = cx + radius;
-		//console.log("CURX:" + curX);
 		var curY = cy;
 		var nextX, nextY;
 		var quadrant = 0;
 		var curAngle = 0; // randians
 		var large;
-		// console.log(data);
 
 		for (var i = 0; i < data.length; i++) {
 			var angle = data[i][this.valueName] * 2 * Math.PI / total;
@@ -153,8 +162,8 @@ class coordinatedPie {
 	}
 
 	drawPie () {
-
 		this.drawLabels();
+		this.chart.removeChild(this.pies);
 
 		let labelP1 = document.createElementNS(svgns, "text");
 		labelP1.setAttribute('x', this.cx1);
@@ -163,7 +172,7 @@ class coordinatedPie {
 
 		let textNode1 = document.createTextNode(this.label1);
 		labelP1.appendChild(textNode1);
-		this.chart.appendChild(labelP1);
+		this.pies.appendChild(labelP1);
 
 		let labelP2 = document.createElementNS(svgns, "text");
 		labelP2.setAttribute('x', this.cx2);
@@ -172,7 +181,7 @@ class coordinatedPie {
 
 		let textNode2 = document.createTextNode(this.label2);
 		labelP2.appendChild(textNode2);
-		this.chart.appendChild(labelP2);
+		this.pies.appendChild(labelP2);
 
 		let box1 = this.textBox1;
 		let box2 = this.textBox2;
@@ -188,13 +197,19 @@ class coordinatedPie {
 			path.setAttribute("stroke", "white");
 			path.setAttribute("fill", this.colors[i]);
 			path.setAttribute("id", "1-" + i);
+			if (i == this.curHover) {
+				path.setAttribute("fill-opacity", 0.5);
+			} else {
+				path.setAttribute("fill-opacity", 1);
+			}
 
 			let path2 = this.path2;
 			let number1 = this.data1[i][this.valueName];
 			let number2 = this.data2[i][this.valueName];
 			let tnode1 = document.createTextNode(number1);
 			let tnode2 = document.createTextNode(number2);
-			//box1.setAttribute('fill', this.colors[i]);
+			let dis = this;
+			let bleb = i;
 
 			path.addEventListener("mouseover", function(event){
 			    path.setAttribute("fill-opacity", 0.5);
@@ -206,6 +221,8 @@ class coordinatedPie {
 			    box2.appendChild(tnode2);
 			    c.appendChild(box1);
 			    c.appendChild(box2);
+			    dis.curHover = bleb;
+			    dis.drawLabels();
 
 			    for (var j = 0; j < path2.length; j++) {
 			    	let path2 = document.getElementById("2-" + j);
@@ -216,13 +233,14 @@ class coordinatedPie {
 		    });
 
 			path.addEventListener("mouseleave", function(event){
-				// console.log(event);
 				path.setAttribute("fill-opacity", 1);
 
 				box1.removeChild(tnode1);
 				c.removeChild(box1);
 				box2.removeChild(tnode2);
 				c.removeChild(box2);
+				dis.curHover = -1;
+				dis.drawLabels();
 
 				for (var j = 0; j < path2.length; j++) {
 			    	let path2 = document.getElementById("2-" + j);
@@ -232,7 +250,7 @@ class coordinatedPie {
 			    }
 			});
 
-			this.chart.appendChild(path);
+			this.pies.appendChild(path);
 		}
 
 
@@ -242,6 +260,11 @@ class coordinatedPie {
 			path.setAttribute("stroke", "white");
 			path.setAttribute("fill", this.colors[i]);
 			path.setAttribute("id", "2-" + i);
+			if (i == this.curHover) {
+				path.setAttribute("fill-opacity", 0.5);
+			} else {
+				path.setAttribute("fill-opacity", 1);
+			}
 
 			let path1 = this.path1;
 			
@@ -249,6 +272,8 @@ class coordinatedPie {
 			let number2 = this.data2[i][this.valueName];
 			let tnode1 = document.createTextNode(number1);
 			let tnode2 = document.createTextNode(number2);
+			let dis = this;
+			let bleb = i;
 
 			path.addEventListener("mouseover", function(event){
 			    path.setAttribute("fill-opacity", 0.5);
@@ -260,6 +285,8 @@ class coordinatedPie {
 			    box2.appendChild(tnode2);
 			    c.appendChild(box1);
 			    c.appendChild(box2);
+			    dis.curHover = bleb;
+			    dis.drawLabels();
 
 			    for (var j = 0; j < path1.length; j++) {
 			    	let path1 = document.getElementById("1-" + j);
@@ -271,13 +298,13 @@ class coordinatedPie {
 		    });
 
 			path.addEventListener("mouseleave", function(event){
-				// console.log(event);
 				path.setAttribute("fill-opacity", 1);
-
 				box1.removeChild(tnode1);
 				c.removeChild(box1);
 				box2.removeChild(tnode2);
 				c.removeChild(box2);
+				dis.curHover = -1;
+				dis.drawLabels();
 
 				for (var j = 0; j < path1.length; j++) {
 			    	let path1 = document.getElementById("1-" + j);
@@ -287,8 +314,9 @@ class coordinatedPie {
 			    }
 			});
 
-			this.chart.appendChild(path);
+			this.pies.appendChild(path);
 		}
+		this.chart.appendChild(this.pies);
 	}
 }
 
