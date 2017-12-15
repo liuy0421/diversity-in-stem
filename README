@@ -1,0 +1,30 @@
+Team Members: Deanna Baris and Yuelin Liu
+
+We used pair programming to finish this project. We implemented all aspects
+of the project from scratch.
+
+We title our work "Diversity in STEM"
+Website: https://liuy0421.github.io/diversity-in-stem/
+Video Demo: 
+
+Reference:
+
+1. Top Tech Companies Data, 2016:
+	https://docs.google.com/spreadsheets/d/1e5jevLJTK9Aayob2msk4Ss9qIMCqfris4m_m0kXO-7s/edit#gid=1925490147
+
+2. Median Salary Data from the National Science Foundation, 2010:
+	https://ncsesdata.nsf.gov/us-workforce/2010/html/SES2010_DST13.html
+
+3. Survey on Children's Career Paths, Fatherly's Imagination Report, 2015:
+	https://www.fatherly.com/health-science/what-kids-want-to-be-when-they-grow-up/
+
+4. College Majors by Gender, 2010:
+	https://ncsesdata.nsf.gov/us-workforce/2010/html/SES2010_DST6.html
+
+5. Science & Engineering Workforce Population Data, NSF 2013:
+	https://ncsesdata.nsf.gov/us-workforce/2013/html/SES2013_DST_08_0.html
+
+We also used libraries: Google Fonts, JQuery, and Scrollify. 
+
+* NOTE: Some hover feature only functions on Firefox. If you use Chrome or IE,
+        functions might be compromised. *
