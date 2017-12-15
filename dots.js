@@ -19,6 +19,7 @@ class Dots {
 		this.ID = id;
 		this.options = data["options"];
 		this.labels = data["labels"];
+		this.curHover = -1;
 		this.categories = data["categories"];
 		this.data = {};
 		this.intervalLeft = this.h / (this.options.length + 1);
@@ -52,17 +53,10 @@ class Dots {
 		this.svg = svg;
 		this.svg.appendChild(this.chart);
 
-		
-
-
 	}
 
 
 	drawButtons(){
-		// left sidebar
-
-		// console.log(this.chart.getAttribute("selectedOpt"));
-
 		let yPos = this.y;
 		let xPosLeft = this.x +  this.radiusLeft;
 		let xPosRight = this.x + this.w -  2 * this.offset - this.radiusRight;
@@ -135,10 +129,7 @@ class Dots {
 				circle.setAttribute("fill", this.colors[2]);
 				let t = document.createTextNode(option);
 				textLabel.appendChild(t);
-				
 			}
-
-		
 
 			let c = this.chart;
 			let opt = option;
@@ -182,11 +173,8 @@ class Dots {
 			circle.setAttribute("fill", '#7E30A1');
 
 			if (this.chart.getAttribute("selectedLabel") == label) {
-				// circle.setAttribute("stroke", "red");
-				// circle.setAttribute("stroke-width", "5px");
 				circle.setAttribute("fill-opacity", 1);
 			} else {
-				// circle.setAttribute("stroke-width", "0px");
 				circle.setAttribute("fill-opacity", 0.3);
 			}
 
@@ -209,8 +197,6 @@ class Dots {
 			circle.addEventListener("click", function(event){
 				c.setAttribute("selectedLabel", l);
 				s.draw();
-			    // c.setAttribute("selectedOpt", opt);
-			    // if 
 		    });
 
 			circle.addEventListener("mouseover", function(event){
@@ -265,8 +251,7 @@ class Dots {
 		let j = 0;
 		total = percentages[0].value;
 		let text_interval = Math.floor(c_height / percentages.length);
-		console.log(percentages.length);
-
+		let dis = this;
 
 		let tx = c_x + text_interval / 2,
 			ty = c_y + c_height + this.offset,
@@ -282,14 +267,6 @@ class Dots {
 			circle.setAttribute("cy", y_pos);
 			circle.setAttribute("r", c_radius);
 
-			circle.addEventListener("mouseover", function(event){
-			    circle.setAttribute("fill-opacity", 0.5);
-		    });
-
-		    circle.addEventListener("mouseleave", function(event){
-			    circle.setAttribute("fill-opacity", 1);
-		    });
-
 			if (i == total) {
 				j++;
 				if (j == percentages.length){
@@ -298,7 +275,30 @@ class Dots {
 				total += percentages[j].value;
 			}
 
+			
+			let bleb = j;
+
+			circle.addEventListener("mouseleave", function(event){
+		    	dis.curHover = -1;
+		    	console.log("HERE");
+		    	console.log(dis.curHover);
+			    dis.drawGraph();
+		    });
+
+			circle.addEventListener("mouseenter", function(event){
+				dis.curHover = bleb;
+			    dis.drawGraph();
+		    });
+
 			circle.setAttribute("fill", this.colors[j]);
+			if (j != this.curHover) {
+				circle.setAttribute("fill-opacity", 0.3);
+			} else {
+				circle.setAttribute("fill-opacity", 1);
+			}
+			if (this.curHover == -1) {
+				circle.setAttribute("fill-opacity", 1);
+			}
 
 			this.graph.appendChild(circle);
 		}
@@ -309,6 +309,13 @@ class Dots {
 			catLabel.setAttribute('x', tx);
 			catLabel.setAttribute('y', ty);	
 			catLabel.setAttribute('fill', this.colors[i]);
+			if (this.curHover == -1) {
+				catLabel.setAttribute('fill-opacity', 1);
+			} else if (percentages[i].label != percentages[this.curHover].label) {
+				catLabel.setAttribute('fill-opacity', 0.2);
+			} else {
+				catLabel.setAttribute('fill-opacity', 1);
+			}
 
 			let t = document.createTextNode(percentages[i].label);
 			catLabel.appendChild(t);
@@ -318,6 +325,14 @@ class Dots {
 			catNum.setAttribute('x', tx);
 			catNum.setAttribute('y', numy);	
 			catNum.setAttribute('fill', this.colors[i]);
+
+			if (this.curHover == -1) {
+				catNum.setAttribute('fill-opacity', 1);
+			} else if (percentages[i].label != percentages[this.curHover].label) {
+				catNum.setAttribute('fill-opacity', 0.2);
+			} else {
+				catNum.setAttribute('fill-opacity', 1);
+			}
 
 			let num = document.createTextNode(percentages[i].value + "%");
 			catNum.appendChild(num);
