@@ -83,15 +83,16 @@ class coordinatedPie {
 			}
 
 			let bleb = i;
+			let dis = this
 
 			l.addEventListener("mouseover", function(event){
-				this.curHover = bleb;
-				this.drawPie();
+				// dis.curHover = bleb;
+				// dis.drawPie();
 			});
 
 			l.addEventListener("mouseleave", function(event){
-				this.curHover = -1;
-				this.drawPie();
+				// dis.curHover = -1;
+				// dis.drawPie();
 			});
 
 			let t = document.createTextNode(this.data1[i][this.categoryName]);
@@ -197,11 +198,12 @@ class coordinatedPie {
 			path.setAttribute("stroke", "white");
 			path.setAttribute("fill", this.colors[i]);
 			path.setAttribute("id", "1-" + i);
-			if (i == this.curHover) {
-				path.setAttribute("fill-opacity", 0.5);
-			} else {
-				path.setAttribute("fill-opacity", 1);
-			}
+			// if (i == this.curHover) {
+			// 	path.setAttribute("fill-opacity", 0.5);
+			// } else {
+			// 	path.setAttribute("fill-opacity", 1);
+			// }
+			path.setAttribute("fill-opacity", 0.5);
 
 			let path2 = this.path2;
 			let number1 = this.data1[i][this.valueName];
@@ -212,7 +214,7 @@ class coordinatedPie {
 			let bleb = i;
 
 			path.addEventListener("mouseover", function(event){
-			    path.setAttribute("fill-opacity", 0.5);
+			    path.setAttribute("fill-opacity", 1);
 			    box1.setAttribute('x', xpos1);
 			    box1.setAttribute('y', ypos);
 			    box2.setAttribute('x', xpos2);
@@ -227,13 +229,13 @@ class coordinatedPie {
 			    for (var j = 0; j < path2.length; j++) {
 			    	let path2 = document.getElementById("2-" + j);
 			    	if (path2["id"] == "2-" + i) {
-			    		path2.setAttribute("fill-opacity", 0.5);
+			    		path2.setAttribute("fill-opacity", 1);
 			    	}
 			    }
 		    });
 
 			path.addEventListener("mouseleave", function(event){
-				path.setAttribute("fill-opacity", 1);
+				path.setAttribute("fill-opacity", 0.5);
 
 				box1.removeChild(tnode1);
 				c.removeChild(box1);
@@ -245,7 +247,7 @@ class coordinatedPie {
 				for (var j = 0; j < path2.length; j++) {
 			    	let path2 = document.getElementById("2-" + j);
 			    	if (path2["id"] == "2-" + i) {
-			    		path2.setAttribute("fill-opacity", 1);
+			    		path2.setAttribute("fill-opacity", 0.5);
 			    	}
 			    }
 			});
@@ -260,11 +262,10 @@ class coordinatedPie {
 			path.setAttribute("stroke", "white");
 			path.setAttribute("fill", this.colors[i]);
 			path.setAttribute("id", "2-" + i);
-			if (i == this.curHover) {
-				path.setAttribute("fill-opacity", 0.5);
-			} else {
-				path.setAttribute("fill-opacity", 1);
-			}
+			// if (i == this.curHover) {
+			// 	path.setAttribute("fill-opacity", 0.5);
+			// }
+			path.setAttribute("fill-opacity", 0.5);
 
 			let path1 = this.path1;
 			
@@ -276,7 +277,7 @@ class coordinatedPie {
 			let bleb = i;
 
 			path.addEventListener("mouseover", function(event){
-			    path.setAttribute("fill-opacity", 0.5);
+			    path.setAttribute("fill-opacity", 1);
 			    box1.setAttribute('x', xpos1);
 			    box1.setAttribute('y', ypos);
 			    box2.setAttribute('x', xpos2);
@@ -291,14 +292,14 @@ class coordinatedPie {
 			    for (var j = 0; j < path1.length; j++) {
 			    	let path1 = document.getElementById("1-" + j);
 			    	if (path1["id"] == "1-" + i) {
-			    		path1.setAttribute("fill-opacity", 0.5);
+			    		path1.setAttribute("fill-opacity", 1);
 			    	}
 			    }
 
 		    });
 
 			path.addEventListener("mouseleave", function(event){
-				path.setAttribute("fill-opacity", 1);
+				path.setAttribute("fill-opacity", 0.5);
 				box1.removeChild(tnode1);
 				c.removeChild(box1);
 				box2.removeChild(tnode2);
@@ -309,7 +310,7 @@ class coordinatedPie {
 				for (var j = 0; j < path1.length; j++) {
 			    	let path1 = document.getElementById("1-" + j);
 			    	if (path1["id"] == "1-" + i) {
-			    		path1.setAttribute("fill-opacity", 1);
+			    		path1.setAttribute("fill-opacity", 0.5);
 			    	}
 			    }
 			});
