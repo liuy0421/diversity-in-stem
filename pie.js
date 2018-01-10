@@ -169,7 +169,7 @@ class coordinatedPie {
 		let labelP1 = document.createElementNS(svgns, "text");
 		labelP1.setAttribute('x', this.cx1);
 		labelP1.setAttribute('y', this.y + this.offset * 2.5);	
-		labelP1.setAttribute('font-size', "30px");
+		labelP1.setAttribute('font-size', "2vw");
 
 		let textNode1 = document.createTextNode(this.label1);
 		labelP1.appendChild(textNode1);
@@ -178,7 +178,7 @@ class coordinatedPie {
 		let labelP2 = document.createElementNS(svgns, "text");
 		labelP2.setAttribute('x', this.cx2);
 		labelP2.setAttribute('y', this.y + this.offset * 2.5);	
-		labelP2.setAttribute('font-size', "30px");
+		labelP2.setAttribute('font-size', "2vw");
 
 		let textNode2 = document.createTextNode(this.label2);
 		labelP2.appendChild(textNode2);

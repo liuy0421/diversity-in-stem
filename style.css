@@ -24,11 +24,11 @@ body {
 h1 {
 	margin: 0 auto;
 	color: #7f1505;
-	font-size: 100px;
+	font-size: 8vw;
 }
 
 h2 {
-	font-size: 40px;
+	font-size: 4vw;
 	color: #1d3b6b;
 	margin: 0 auto;
 }
@@ -40,7 +40,7 @@ h4 {
 a {
 	color: #FCC800;
 	text-decoration: none;
-	font-size: 20px;
+	font-size: 2vw;
 	padding: none;
 	margin: 0 auto;
 }
@@ -75,7 +75,7 @@ a {
 }
 
 #intro {
-	font-size: 23px;
+	font-size: 1.75vw;
 }
 
 #salary-bar {
@@ -88,7 +88,7 @@ a {
 }
 
 .bold-text {
-	font-size: 50px;
+	font-size: 4vw;
 	color: #FCC800;
 }
 
@@ -103,7 +103,7 @@ a {
 	width: 70vw;
 	margin: 0 auto;
 	color: white;
-	font-size: 30px;
+	font-size: 2vw;
 }
 
 .black {
@@ -115,7 +115,7 @@ a {
 }
 
 #conclusion {
-	font-size: 24px;
+	font-size: 1.7vw;
 }
 
 #navbar {
@@ -128,7 +128,7 @@ a {
 }
 
 #github-link {
-	font-size: 30px;
+	font-size: 2.25vw;
 }
 
 .button {

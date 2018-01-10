@@ -123,7 +123,7 @@ class Dots {
 			let textLabel = document.createElementNS(svgns, "text");
 			textLabel.setAttribute('x', xPosLeft);
 			textLabel.setAttribute('y', yPos + 5);	
-			textLabel.setAttribute('stroke-width', "5px");
+			textLabel.setAttribute('stroke-width', "1.5vw");
 			textLabel.setAttribute('fill', "white");
 
 			if (this.useImg) {
@@ -184,7 +184,7 @@ class Dots {
 			let textLabel = document.createElementNS(svgns, "text");
 			textLabel.setAttribute('x', xPosRight);
 			textLabel.setAttribute('y', yPos + 5);	
-			textLabel.setAttribute('stroke-width', "5px");
+			textLabel.setAttribute('stroke-width', "1.5vw");
 			textLabel.setAttribute('fill', "white");
 
 			let t = document.createTextNode(label);

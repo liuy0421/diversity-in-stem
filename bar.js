@@ -114,7 +114,7 @@ class myBar {
 
 				valLabel.setAttribute('x', labelXpos + interval/2);
 				valLabel.setAttribute('y', yp);
-				valLabel.setAttribute("font-size", "15px");
+				valLabel.setAttribute("font-size", "1vw");
 
 				valLabel.appendChild(labelTextNode);
 				chart.appendChild(valLabel);
@@ -131,7 +131,7 @@ class myBar {
 			let label = document.createElementNS(svgns, "text");
 			label.setAttribute('x', x_pos + interval/2);
 			label.setAttribute('y', this.y + this.h - this.offset /2);
-			label.setAttribute("font-size", "15px");
+			label.setAttribute("font-size", "1vw");
 
 			let textNode = document.createTextNode(this.dataSet[value][this.labelX]);
 			label.appendChild(textNode);

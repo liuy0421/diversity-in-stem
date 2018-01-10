@@ -202,15 +202,10 @@ var techDots, salaryBar, techTotsDots, collegePie, degreeBar;
 
 var height = $(window).height(); 
 var width = $(window).width();
-console.log(height);
-console.log(width);
-console.log(window.pageYOffset);
 
 $(window).resize(function() {
     height = $(window).height(); 
     width = $(window).width(); 
-    // console.log(height);
-    // console.log(width);
     updateGraphs();
 });
 
