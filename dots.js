@@ -27,11 +27,10 @@ class Dots {
 
 		this.intervalRight = (this.h - this.offset * 4)/ (this.labels.length * 2);
 
-		this.radiusLeft = this.intervalLeft * .7;
-		this.radiusRight = this.radiusLeft;
+		this.radius = Math.min(this.intervalLeft * .7, this.w * .1);
 
-		if (this.radiusLeft > this.h * .12) {
-			this.radiusLeft = this.h * .12;
+		if (this.radius > this.h * .12) {
+			this.radius = this.h * .12;
 		}
 
 		for (const option of this.options) {
@@ -55,15 +54,22 @@ class Dots {
 
 	}
 
+	updateSize(width, height){
+		this.w = width;
+		this.h = height;
+		this.radius = Math.min(this.intervalLeft * .7, this.w * .05);
+		this.draw();
+	}
+
 
 	drawButtons(){
 		let yPos = this.y;
-		let xPosLeft = this.x +  this.radiusLeft;
-		let xPosRight = this.x + this.w -  2 * this.offset - this.radiusRight;
+		let xPosLeft = this.x + this.radius;
+		let xPosRight = this.x + this.w - this.radius * 2;
 
 		if (this.options.length < 5) {
 			yPos += this.intervalLeft / 2;
-			xPosLeft += this.radiusLeft *2;
+			xPosLeft += this.radius *2;
 
 		}
 
@@ -78,15 +84,15 @@ class Dots {
 				p.setAttribute("height", "100%");
 				p.setAttribute("x", "0%");
 				p.setAttribute("y", "0%");
-				p.setAttribute("viewBox", "0 0 " + this.radiusLeft * 2 + " " + this.radiusLeft * 2);
+				p.setAttribute("viewBox", "0 0 " + this.radius * 2 + " " + this.radius * 2);
 				p.setAttribute("id", "i"+option);
 
 				let im = document.createElementNS(svgns, "image");
 				im.setAttribute("x", "0%");
 				im.setAttribute("y", "0%");
-				im.setAttribute("width", this.radiusLeft*2);
-				im.setAttribute("height", this.radiusLeft*2);
-				im.setAttribute("href", "img/" + option + ".png");//option + ".png");
+				im.setAttribute("width", this.radius*2);
+				im.setAttribute("height", this.radius*2);
+				im.setAttribute("href", "img/" + option + ".png"); //option + ".png");
 				p.appendChild(im);
 				defs.appendChild(p);
 			}
@@ -105,14 +111,11 @@ class Dots {
 			let circle = document.createElementNS(svgns, "circle");
 			circle.setAttribute("cx", xPosLeft);
 			circle.setAttribute("cy", yPos);
-			circle.setAttribute("r", this.radiusLeft);
+			circle.setAttribute("r", this.radius);
 
 			if (this.chart.getAttribute("selectedOpt") == option) {
-				// circle.setAttribute("stroke-width", "5px");
-				// circle.setAttribute("stroke", "red");
 				circle.setAttribute("fill-opacity", 1);
 			} else {
-				// circle.setAttribute("stroke-width", "0px");
 				circle.setAttribute("fill-opacity", 0.3);
 			}
 
@@ -168,7 +171,7 @@ class Dots {
 			let circle = document.createElementNS(svgns, "circle");
 			circle.setAttribute("cx", xPosRight);
 			circle.setAttribute("cy", yPos);
-			circle.setAttribute("r", this.radiusRight);
+			circle.setAttribute("r", this.radius);
 
 			circle.setAttribute("fill", '#7E30A1');
 
@@ -222,12 +225,14 @@ class Dots {
 	drawGraph() {
 		this.chart.removeChild(this.graph);
 		this.graph = document.createElementNS(svgns, "g");
-		let c_width = this.w - this.offset - this.radiusLeft * 4,
+		let /*c_width = this.w - this.offset - this.radius * 4,*/
+			c_width = this.w * .8,
 			c_height = (this.h - this.offset * 2) ,
-			c_interval = c_height / 20,
-			c_x = this.x + this.offset /2 + this.radiusLeft * 2 + (c_width - c_height)/2,
+			c_interval = Math.min(c_height / 20, c_width / 20),
+			c_x = this.x + this.offset /2 + this.radius * 2 + (c_width - c_height)/2,
 			c_y = this.y + this.offset,
 			c_radius = c_interval * .8;
+			console.log(c_radius);
 
 		let o = this.chart.getAttribute("selectedOpt");
 		let l = this.chart.getAttribute("selectedLabel");

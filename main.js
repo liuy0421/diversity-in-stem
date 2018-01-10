@@ -193,54 +193,57 @@ var degreeBarsData = { "options": ["Bachelor's", "Master's", "Doctorate"],
                                                   {"Race": "Other", "Population": 18000}]}]}};
 
 
+var dotIds = ["#landing-page-button", "#intro-button", "#top-tech-button", 
+              "#salary-button", "#gender-diff-button", "#kids-button", 
+              "#majors-button", "#degrees-button", "#conclusion-button", 
+              "#sources-button"];
+
+var techDots, salaryBar, techTotsDots, collegePie, degreeBar;
+
+var height = $(window).height(); 
+var width = $(window).width();
+console.log(height);
+console.log(width);
+console.log(window.pageYOffset);
+
+$(window).resize(function() {
+    height = $(window).height(); 
+    width = $(window).width(); 
+    // console.log(height);
+    // console.log(width);
+    updateGraphs();
+});
+
+
+drawGraphs();
+
+function drawGraphs() {
+    techDots = new Dots(0, 0, width * .8, height * .7, techDotsData, "tech-dots-chart", topTechSVG, true);
+    techDots.draw();
+
+    var w2 = document.getElementById("salary-bar-graph").getAttribute("width");
+    var h2 = document.getElementById("salary-bar-graph").getAttribute("height");
+    var salaryBar = new twoBars(0,0, w2, h2, dataBars, "salary-bar-graph", salaryBarSVG, true);
+    salaryBar.draw();
+
+    var w3 = document.getElementById("kids-graph").getAttribute("width");
+    var h3 = document.getElementById("kids-graph").getAttribute("height");
+    var techTotsDots = new Dots(0, 0, w3, h3, totsTotsData, "kids-chart", kidsSVG, false);
+    techTotsDots.draw();
+
+    var w4 = document.getElementById("college-major-graph").getAttribute("width");
+    var h4 = document.getElementById("college-major-graph").getAttribute("height");
+    var collegePie = new coordinatedPie(0, 0, w4, h4, dataPie, "college-major-chart", majorSVG);
+    collegePie.drawPie();
+
+    var w5 = document.getElementById("degree-bar-graph").getAttribute("width");
+    var h5 = document.getElementById("degree-bar-graph").getAttribute("height");
+    var degreeBar = new twoBars(0,0, w5, h5, degreeBarsData, "degree-bar-graph", degreeBarSVG, false);
+    degreeBar.draw();
+}
 
 
 
-var w1 = document.getElementById("top-tech-graph").getAttribute("width");
-var h1 = document.getElementById("top-tech-graph").getAttribute("height");
-var techDots = new Dots(0, 0, w1, h1, techDotsData, "tech-dots-chart", topTechSVG, true);
-techDots.draw();
-
-var w2 = document.getElementById("salary-bar-graph").getAttribute("width");
-var h2 = document.getElementById("salary-bar-graph").getAttribute("height");
-var salaryBar = new twoBars(0,0, w2, h2, dataBars, "salary-bar-graph", salaryBarSVG, true);
-salaryBar.draw();
-
-var w3 = document.getElementById("kids-graph").getAttribute("width");
-var h3 = document.getElementById("kids-graph").getAttribute("height");
-var techDots = new Dots(0, 0, w3, h3, totsTotsData, "kids-chart", kidsSVG, false);
-techDots.draw();
-
-var w4 = document.getElementById("college-major-graph").getAttribute("width");
-var h4 = document.getElementById("college-major-graph").getAttribute("height");
-var collegePie = new coordinatedPie(0, 0, w4, h4, dataPie, "college-major-chart", majorSVG);
-collegePie.drawPie();
-
-var w5 = document.getElementById("degree-bar-graph").getAttribute("width");
-var h5 = document.getElementById("degree-bar-graph").getAttribute("height");
-var degreeBar = new twoBars(0,0, w5, h5, degreeBarsData, "degree-bar-graph", degreeBarSVG, false);
-degreeBar.draw();
-// w = 800;
-
-// var bar = new myBar(0, 0, w, h, data, "#6b4455", "#996461", "bar-chart", svg1, false);
-// bar.draw();
-// var pies = new coordinatedPie(0, 0, w, 600, dataPie, "pie-chart", svg2);
-// pies.drawPie();
-// var dots = new Dots(0, 0, w, 500, techDotsData, "dots-chart", svg3, true);
-// dots.draw();
-// var dots2 = new Dots(0, 0, w, 500, totsTotsData, "dots2-chart", svg4, false);
-// dots2.draw();
-// var bars = new twoBars(0, 0, 1000, 600, dataBars, "twobars-chart", svg5);
-// bars.draw();
-
-
-
-// var circle = document.createElementNS(svgns, "circle");
-
- 
-
-// circle.setAttribute('cx', 100);
-// circle.setAttribute('cy', 100);
-// circle.setAttribute('r', 100);
-
-// svg.appendChild(circle);
+function updateGraphs(){
+    techDots.updateSize(width * .8, height * .7);
+}

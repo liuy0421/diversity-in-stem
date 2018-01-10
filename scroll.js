@@ -15,6 +15,18 @@ var selected = buttons[0];
 var yellow = "#FCC800";
 var blue = "#1d3b6b";
 var lastScrollTop = 0;
+var dotId = 0;
+
+$(window).scroll(function() {
+    var oldId = dotId;
+    dotId = Math.floor((window.pageYOffset + 10) / height);
+
+    if (oldId != dotId) {
+        $(dotIds[oldId]).css("background", blue);
+        $(dotIds[dotId]).css("background", yellow);
+        selected = dotIds[dotId];
+    }
+});
 
 $(selected).css("background", yellow);
 
